@@ -174,7 +174,7 @@ function MinhaConta() {
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold">Seu plano</h2>
               <Badge className="bg-gradient-brand text-primary-foreground">
-                {sub?.status === "trial" ? "Teste grátis" : nomeDoPlano(sub?.plano_ativo)}
+                {sub?.status === "trial" ? "Teste grátis" : nomeDoPlano(sub?.plano_ativo, sub?.status ?? "trial")}
               </Badge>
             </div>
             {sub?.status === "trial" && (
@@ -229,7 +229,7 @@ function MinhaConta() {
         <p className="mt-1 mb-6 text-sm text-muted-foreground">
           Faça upgrade quando quiser. A troca de plano é confirmada pela nossa equipe.
         </p>
-        <Planos ctaLabel="Quero este plano" />
+        <Planos />
       </section>
     </div>
   );

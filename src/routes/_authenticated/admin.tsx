@@ -228,7 +228,7 @@ function Admin() {
                       <td className="p-3">{posts}</td>
                       <td className="p-3">
                         <Badge variant="secondary">
-                          {sub?.status === "trial" ? "Teste grátis" : nomeDoPlano(sub?.plano_ativo)}
+                          {sub?.status === "trial" ? "Teste grátis" : nomeDoPlano(sub?.plano_ativo, sub?.status ?? "trial")}
                         </Badge>
                       </td>
                       <td className="p-3">
