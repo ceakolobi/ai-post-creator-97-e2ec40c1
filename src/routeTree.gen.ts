@@ -19,6 +19,8 @@ import { Route as RedefinirSenhaRouteImport } from './routes/redefinir-senha'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AuthenticatedCriarRouteImport } from './routes/_authenticated/criar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedMeusPostsRouteImport } from './routes/_authenticated/meus-posts'
+import { Route as AuthenticatedPostPostIdRouteImport } from './routes/_authenticated/post.$postId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -69,6 +71,16 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMeusPostsRoute = AuthenticatedMeusPostsRouteImport.update({
+  id: '/meus-posts',
+  path: '/meus-posts',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPostPostIdRoute = AuthenticatedPostPostIdRouteImport.update({
+  id: '/post/$postId',
+  path: '/post/$postId',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -80,6 +92,8 @@ export interface FileRoutesByFullPath {
   '/termos': typeof TermosRoute
   '/criar': typeof AuthenticatedCriarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/meus-posts': typeof AuthenticatedMeusPostsRoute
+  '/post/$postId': typeof AuthenticatedPostPostIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -91,6 +105,8 @@ export interface FileRoutesByTo {
   '/termos': typeof TermosRoute
   '/criar': typeof AuthenticatedCriarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/meus-posts': typeof AuthenticatedMeusPostsRoute
+  '/post/$postId': typeof AuthenticatedPostPostIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -104,6 +120,8 @@ export interface FileRoutesById {
   '/termos': typeof TermosRoute
   '/_authenticated/criar': typeof AuthenticatedCriarRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/meus-posts': typeof AuthenticatedMeusPostsRoute
+  '/_authenticated/post/$postId': typeof AuthenticatedPostPostIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,6 +135,8 @@ export interface FileRouteTypes {
     | '/termos'
     | '/criar'
     | '/dashboard'
+    | '/meus-posts'
+    | '/post/$postId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -128,6 +148,8 @@ export interface FileRouteTypes {
     | '/termos'
     | '/criar'
     | '/dashboard'
+    | '/meus-posts'
+    | '/post/$postId'
   id:
     | '__root__'
     | '/'
@@ -140,6 +162,8 @@ export interface FileRouteTypes {
     | '/termos'
     | '/_authenticated/criar'
     | '/_authenticated/dashboard'
+    | '/_authenticated/meus-posts'
+    | '/_authenticated/post/$postId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -225,17 +249,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/meus-posts': {
+      id: '/_authenticated/meus-posts'
+      path: '/meus-posts'
+      fullPath: '/meus-posts'
+      preLoaderRoute: typeof AuthenticatedMeusPostsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/post/$postId': {
+      id: '/_authenticated/post/$postId'
+      path: '/post/$postId'
+      fullPath: '/post/$postId'
+      preLoaderRoute: typeof AuthenticatedPostPostIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedCriarRoute: typeof AuthenticatedCriarRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedMeusPostsRoute: typeof AuthenticatedMeusPostsRoute
+  AuthenticatedPostPostIdRoute: typeof AuthenticatedPostPostIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCriarRoute: AuthenticatedCriarRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedMeusPostsRoute: AuthenticatedMeusPostsRoute,
+  AuthenticatedPostPostIdRoute: AuthenticatedPostPostIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

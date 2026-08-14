@@ -33,14 +33,20 @@ function DetalhePost() {
       .from("posts_gerados")
       .update({ favorito: !post.favorito })
       .eq("id", post.id);
-    if (error) return toast.error("Não conseguimos atualizar os favoritos.");
+    if (error) {
+      toast.error("Não conseguimos atualizar os favoritos.");
+      return;
+    }
     queryClient.invalidateQueries({ queryKey: ["posts"] });
   }
 
   async function excluir() {
     if (!post || !confirm("Excluir este post do histórico?")) return;
     const { error } = await supabase.from("posts_gerados").delete().eq("id", post.id);
-    if (error) return toast.error("Não conseguimos excluir este post.");
+    if (error) {
+      toast.error("Não conseguimos excluir este post.");
+      return;
+    }
     queryClient.invalidateQueries({ queryKey: ["posts"] });
     toast.success("Post excluído");
     navigate({ to: "/meus-posts" });
