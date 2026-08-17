@@ -25,6 +25,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { PostPreview } from "@/components/PostPreview";
+import { LogoMarca } from "@/components/LogoMarca";
+import { useMarca } from "@/lib/logo";
 import { useAuth } from "@/hooks/useAuth";
 import { calcularUso, usePosts, useSubscription, type Post } from "@/lib/data";
 import { normalizarHashtags } from "@/lib/n8n";
@@ -59,6 +61,7 @@ function CriarPost() {
   const { data: sub } = useSubscription();
   const usageGerarPost = useServerFn(gerarPostComIA);
   const uso = calcularUso(posts, sub);
+  const marca = useMarca();
 
   const [nicho, setNicho] = useState("");
   const [palavras, setPalavras] = useState("");
@@ -175,7 +178,7 @@ function CriarPost() {
         </p>
       </div>
 
-      {/* Removido o aviso de n8n já que agora usamos IA nativa */}
+      <LogoMarca />
 
       {uso.bloqueado && (
         <div className="rounded-2xl border border-destructive/40 bg-card p-4 text-sm">
@@ -299,7 +302,7 @@ function CriarPost() {
             <h2 className="text-2xl">Seu post está pronto</h2>
             <Badge className="bg-gradient-brand text-primary-foreground">novo</Badge>
           </div>
-          <PostPreview post={resultado} onFavoritar={favoritar} onGerarOutra={() => enviar()} />
+          <PostPreview post={resultado} marca={marca} onFavoritar={favoritar} onGerarOutra={() => enviar()} />
         </div>
       )}
 
