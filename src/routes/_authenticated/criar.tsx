@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Loader2, Sparkles, Lock } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -26,7 +27,8 @@ import {
 import { PostPreview } from "@/components/PostPreview";
 import { useAuth } from "@/hooks/useAuth";
 import { calcularUso, usePosts, useSubscription, type Post } from "@/lib/data";
-import { ErroDeGeracao, gerarPost, normalizarHashtags, webhookConfigurado } from "@/lib/n8n";
+import { normalizarHashtags } from "@/lib/n8n";
+import { gerarPostComIA } from "@/lib/ai-generator.functions.ts";
 
 export const Route = createFileRoute("/_authenticated/criar")({
   head: () => ({
@@ -55,6 +57,7 @@ function CriarPost() {
   const queryClient = useQueryClient();
   const { data: posts } = usePosts();
   const { data: sub } = useSubscription();
+  const usageGerarPost = useServerFn(gerarPostComIA);
   const uso = calcularUso(posts, sub);
 
   const [nicho, setNicho] = useState("");
@@ -96,13 +99,15 @@ function CriarPost() {
     setGerando(true);
     setMensagem(MENSAGENS[0]!);
     try {
-      const resposta = await gerarPost({
-        nicho: nicho.trim(),
-        palavras_chave: palavras.trim(),
-        tom_de_voz: tom,
-        cores_marca: usarCores ? `${cor1}, ${cor2}` : "",
-        formato,
-        user_id: user.id,
+      const resposta = await usageGerarPost({
+        data: {
+          nicho: nicho.trim(),
+          palavras_chave: palavras.trim(),
+          tom_de_voz: tom,
+          cores_marca: usarCores ? `${cor1}, ${cor2}` : "",
+          formato,
+          user_id: user.id,
+        }
       });
 
       const hashtags = normalizarHashtags(resposta.hashtags);
@@ -121,18 +126,18 @@ function CriarPost() {
           .from("posts_gerados")
           .insert({
             user_id: user.id,
-            nicho: resposta.nicho || nicho.trim(),
+            nicho: nicho.trim(),
             palavras_chave: palavras.trim(),
-            titulo_curto: resposta.titulo_curto ?? null,
-            legenda: resposta.legenda!,
+            titulo_curto: (resposta as any).titulo_curto ?? null,
+            legenda: (resposta as any).legenda!,
             hashtags,
-            imagem_url: resposta.imagem_url ?? null,
+            imagem_url: (resposta as any).imagem_url ?? null,
             formato,
             tom_de_voz: tom || null,
           })
           .select("*")
           .single();
-        if (error) throw new ErroDeGeracao("O post foi gerado, mas não conseguimos salvá-lo no histórico.");
+        if (error) throw new Error("O post foi gerado, mas não conseguimos salvá-lo no histórico.");
         salvo = data as Post;
       }
 
@@ -140,11 +145,8 @@ function CriarPost() {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
       toast.success("Post criado com sucesso!");
       setTimeout(() => resultadoRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
-    } catch (err) {
-      const msg =
-        err instanceof ErroDeGeracao
-          ? err.message
-          : "Algo deu errado ao criar o post. Seus dados foram mantidos, tente novamente.";
+    } catch (err: any) {
+      const msg = err?.message || "Algo deu errado ao criar o post. Seus dados foram mantidos, tente novamente.";
       toast.error(msg);
     } finally {
       setGerando(false);
@@ -173,12 +175,7 @@ function CriarPost() {
         </p>
       </div>
 
-      {!webhookConfigurado() && (
-        <div className="rounded-2xl border border-border bg-card p-4 text-sm text-muted-foreground">
-          O motor de geração ainda não está conectado. Informe a URL do webhook na variável{" "}
-          <code className="text-accent">VITE_N8N_WEBHOOK_URL</code> para ativar a criação de posts.
-        </div>
-      )}
+      {/* Removido o aviso de n8n já que agora usamos IA nativa */}
 
       {uso.bloqueado && (
         <div className="rounded-2xl border border-destructive/40 bg-card p-4 text-sm">
