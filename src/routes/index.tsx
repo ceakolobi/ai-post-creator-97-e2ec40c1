@@ -158,6 +158,20 @@ function Landing() {
           </div>
         </section>
 
+        <section className="border-t border-border bg-card/20 py-12">
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <h2 className="text-xl font-semibold">Dúvidas Frequentes</h2>
+            <div className="mt-6 text-left space-y-4">
+              <div className="rounded-xl border border-border bg-card p-5">
+                <h3 className="font-medium text-accent">Eu tenho Kiwify, posso usar?</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  Sim! Você pode usar a Kiwify para vender o seu acesso ao Criattor ou integrar o checkout da Kiwify caso esteja criando uma oferta personalizada. Nosso sistema é flexível e focado em gerar o conteúdo, enquanto você mantém o controle total das suas vendas em sua plataforma de preferência.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="planos" className="border-t border-border bg-card/40">
           <div className="mx-auto max-w-6xl px-4 py-16">
             <h2 className="text-3xl">Planos para cada momento</h2>
