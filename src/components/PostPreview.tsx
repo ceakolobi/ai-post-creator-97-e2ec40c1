@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Copy, Check, Download, Heart, RefreshCw, Trash2 } from "lucide-react";
+import { AgendarDialog } from "@/components/AgendarDialog";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import type { Post } from "@/lib/data";
@@ -59,6 +60,11 @@ export function PostPreview({
     }
   }
 
+  async function baixarECopiar() {
+    await copiar();
+    await baixar();
+  }
+
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,420px)_1fr]">
       <div className="overflow-hidden rounded-2xl border border-border bg-card">
@@ -103,14 +109,21 @@ export function PostPreview({
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <Button variant="hero" onClick={copiar}>
+          {post.imagem_url && (
+            <Button variant="hero" onClick={baixarECopiar}>
+              <Download />
+              Baixar imagem + copiar legenda
+            </Button>
+          )}
+          <AgendarDialog postId={post.id} />
+          <Button variant="outline" onClick={copiar}>
             {copiado ? <Check /> : <Copy />}
             {copiado ? "Copiado!" : "Copiar legenda"}
           </Button>
           {post.imagem_url && (
             <Button variant="outline" onClick={baixar}>
               <Download />
-              Baixar imagem
+              Só a imagem
             </Button>
           )}
           {onGerarOutra && (
