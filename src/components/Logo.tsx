@@ -8,7 +8,7 @@ export function Logo({ to = "/" }: { to?: string }) {
         <Sparkles className="size-4 text-primary-foreground" />
       </span>
       <span className="text-lg">
-        Cri<span className="text-gradient">attor</span>
+        Hag<span className="text-gradient">oth</span>
       </span>
     </Link>
   );
