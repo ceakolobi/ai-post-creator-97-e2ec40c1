@@ -32,8 +32,10 @@ export function LogoMarca() {
   } | null;
 
   const posicao: PosicaoLogo = perfilLogo?.logo_posicao ?? "inferior-direita";
-  const tamanho = perfilLogo?.logo_tamanho ?? 18;
-  const opacidade = perfilLogo?.logo_opacidade ?? 90;
+  const [tamanhoLocal, setTamanhoLocal] = useState<number | null>(null);
+  const [opacidadeLocal, setOpacidadeLocal] = useState<number | null>(null);
+  const tamanho = tamanhoLocal ?? perfilLogo?.logo_tamanho ?? 18;
+  const opacidade = opacidadeLocal ?? perfilLogo?.logo_opacidade ?? 90;
 
   async function atualizar(campos: Record<string, unknown>) {
     if (!user) return;
@@ -132,6 +134,7 @@ export function LogoMarca() {
                 min={5}
                 max={50}
                 step={1}
+                onValueChange={(v) => setTamanhoLocal(v[0] ?? tamanho)}
                 onValueCommit={(v) => atualizar({ logo_tamanho: v[0] })}
               />
             </div>
@@ -143,6 +146,7 @@ export function LogoMarca() {
                 min={20}
                 max={100}
                 step={5}
+                onValueChange={(v) => setOpacidadeLocal(v[0] ?? opacidade)}
                 onValueCommit={(v) => atualizar({ logo_opacidade: v[0] })}
               />
             </div>
