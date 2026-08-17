@@ -137,7 +137,7 @@ function CriarPost() {
           })
           .select("*")
           .single();
-        if (error) throw new ErroDeGeracao("O post foi gerado, mas não conseguimos salvá-lo no histórico.");
+        if (error) throw new Error("O post foi gerado, mas não conseguimos salvá-lo no histórico.");
         salvo = data as Post;
       }
 
