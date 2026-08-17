@@ -292,6 +292,8 @@ function Admin() {
           </TabsContent>
         </Tabs>
       )}
+
+      <AdminCheckouts />
     </div>
   );
 }
