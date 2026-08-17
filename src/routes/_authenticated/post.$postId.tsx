@@ -11,9 +11,9 @@ import { usePosts } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/post/$postId")({
   head: () => ({
     meta: [
-      { title: "Detalhe do post — Criattor" },
+      { title: "Detalhe do post — Hagoth" },
       { name: "description", content: "Veja a legenda, hashtags e imagem geradas para este post." },
-      { property: "og:title", content: "Detalhe do post — Criattor" },
+      { property: "og:title", content: "Detalhe do post — Hagoth" },
       { property: "og:description", content: "Legenda, hashtags e imagem do seu post." },
     ],
   }),

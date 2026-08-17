@@ -26,10 +26,10 @@ import { PLANOS, nomeDoPlano } from "@/lib/plans";
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Administração — Criattor" },
+      { title: "Administração — Hagoth" },
       { name: "description", content: "Métricas do produto, clientes, planos e feedbacks recebidos." },
-      { property: "og:title", content: "Administração — Criattor" },
-      { property: "og:description", content: "Painel administrativo do Criattor." },
+      { property: "og:title", content: "Administração — Hagoth" },
+      { property: "og:description", content: "Painel administrativo do Hagoth." },
     ],
   }),
   component: Admin,
@@ -142,7 +142,7 @@ function Admin() {
     return (
       <EmptyState
         titulo="Acesso restrito"
-        descricao="Esta área é exclusiva para administradores do Criattor."
+        descricao="Esta área é exclusiva para administradores do Hagoth."
       />
     );
   }

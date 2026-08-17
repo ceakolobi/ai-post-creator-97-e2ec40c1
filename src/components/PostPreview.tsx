@@ -51,7 +51,7 @@ export function PostPreview({
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `criattor-${post.id.slice(0, 8)}.png`;
+      a.download = `hagoth-${post.id.slice(0, 8)}.png`;
       a.click();
       URL.revokeObjectURL(url);
       toast.success("Download iniciado");

@@ -11,10 +11,10 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/recuperar-senha")({
   head: () => ({
     meta: [
-      { title: "Recuperar senha — Criattor" },
-      { name: "description", content: "Receba um link por e-mail para redefinir a senha da sua conta Criattor." },
-      { property: "og:title", content: "Recuperar senha — Criattor" },
-      { property: "og:description", content: "Redefina a senha da sua conta Criattor." },
+      { title: "Recuperar senha — Hagoth" },
+      { name: "description", content: "Receba um link por e-mail para redefinir a senha da sua conta Hagoth." },
+      { property: "og:title", content: "Recuperar senha — Hagoth" },
+      { property: "og:description", content: "Redefina a senha da sua conta Hagoth." },
     ],
   }),
   component: RecuperarSenha,

@@ -14,9 +14,9 @@ export const Route = createFileRoute("/_authenticated/aguardando-pagamento")({
   }),
   head: () => ({
     meta: [
-      { title: "Confirmando pagamento — Criattor" },
+      { title: "Confirmando pagamento — Hagoth" },
       { name: "description", content: "Estamos confirmando seu pagamento para liberar o plano." },
-      { property: "og:title", content: "Confirmando pagamento — Criattor" },
+      { property: "og:title", content: "Confirmando pagamento — Hagoth" },
       { property: "og:description", content: "Assim que a Kiwify confirmar, seu plano é liberado." },
     ],
   }),

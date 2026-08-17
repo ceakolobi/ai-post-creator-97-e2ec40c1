@@ -11,12 +11,12 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/criar-conta")({
   head: () => ({
     meta: [
-      { title: "Criar conta grátis — Criattor" },
+      { title: "Criar conta grátis — Hagoth" },
       {
         name: "description",
-        content: "Crie sua conta no Criattor e gere 10 posts para Instagram grátis por 7 dias.",
+        content: "Crie sua conta no Hagoth e gere 10 posts para Instagram grátis por 7 dias.",
       },
-      { property: "og:title", content: "Criar conta grátis — Criattor" },
+      { property: "og:title", content: "Criar conta grátis — Hagoth" },
       { property: "og:description", content: "10 posts grátis por 7 dias, sem cartão de crédito." },
     ],
   }),

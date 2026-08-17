@@ -25,7 +25,7 @@ export function AuthLayout({ children }: { children: ReactNode }) {
             Posts de Instagram prontos, <span className="text-gradient">sem travar na criação</span>
           </h2>
           <p className="mt-3 max-w-md text-sm text-muted-foreground">
-            O Criattor transforma a descrição do seu negócio em conteúdo publicável: texto, hashtags e arte.
+            O Hagoth transforma a descrição do seu negócio em conteúdo publicável: texto, hashtags e arte.
           </p>
           <ul className="mt-6 space-y-2">
             {inclusos.map((i) => (

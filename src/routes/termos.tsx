@@ -4,10 +4,10 @@ import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 export const Route = createFileRoute("/termos")({
   head: () => ({
     meta: [
-      { title: "Termos de Uso — Criattor" },
-      { name: "description", content: "Condições de uso da plataforma Criattor de geração de posts com IA." },
-      { property: "og:title", content: "Termos de Uso — Criattor" },
-      { property: "og:description", content: "Condições de uso da plataforma Criattor." },
+      { title: "Termos de Uso — Hagoth" },
+      { name: "description", content: "Condições de uso da plataforma Hagoth de geração de posts com IA." },
+      { property: "og:title", content: "Termos de Uso — Hagoth" },
+      { property: "og:description", content: "Condições de uso da plataforma Hagoth." },
     ],
   }),
   component: Termos,
@@ -23,7 +23,7 @@ function Termos() {
         <section className="space-y-3 text-sm text-muted-foreground">
           <h2 className="text-lg font-semibold text-foreground">1. Sobre o serviço</h2>
           <p>
-            O Criattor é uma ferramenta que gera sugestões de conteúdo (legendas, hashtags e imagens) para redes
+            O Hagoth é uma ferramenta que gera sugestões de conteúdo (legendas, hashtags e imagens) para redes
             sociais com apoio de inteligência artificial. O conteúdo gerado é uma sugestão e deve ser revisado
             antes da publicação.
           </p>
@@ -39,7 +39,7 @@ function Termos() {
           </p>
           <h2 className="text-lg font-semibold text-foreground">4. Conteúdo gerado</h2>
           <p>
-            Você pode usar comercialmente o conteúdo gerado na sua conta. O Criattor não garante exclusividade
+            Você pode usar comercialmente o conteúdo gerado na sua conta. O Hagoth não garante exclusividade
             absoluta de resultados gerados por IA.
           </p>
           <h2 className="text-lg font-semibold text-foreground">5. Cancelamento</h2>

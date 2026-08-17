@@ -21,9 +21,9 @@ import { usePosts, useSubscription, calcularUso, type Post } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Painel — Criattor" },
+      { title: "Painel — Hagoth" },
       { name: "description", content: "Acompanhe seus posts gerados, consumo do plano e histórico recente." },
-      { property: "og:title", content: "Painel — Criattor" },
+      { property: "og:title", content: "Painel — Hagoth" },
       { property: "og:description", content: "Seus posts gerados e consumo do plano." },
     ],
   }),

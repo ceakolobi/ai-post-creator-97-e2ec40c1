@@ -4,13 +4,13 @@ import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 export const Route = createFileRoute("/privacidade")({
   head: () => ({
     meta: [
-      { title: "Política de Privacidade — Criattor" },
+      { title: "Política de Privacidade — Hagoth" },
       {
         name: "description",
-        content: "Como o Criattor coleta, usa e protege os seus dados pessoais.",
+        content: "Como o Hagoth coleta, usa e protege os seus dados pessoais.",
       },
-      { property: "og:title", content: "Política de Privacidade — Criattor" },
-      { property: "og:description", content: "Como o Criattor coleta, usa e protege os seus dados." },
+      { property: "og:title", content: "Política de Privacidade — Hagoth" },
+      { property: "og:description", content: "Como o Hagoth coleta, usa e protege os seus dados." },
     ],
   }),
   component: Privacidade,

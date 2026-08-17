@@ -18,9 +18,9 @@ import { nomeDoPlano } from "@/lib/plans";
 export const Route = createFileRoute("/_authenticated/minha-conta")({
   head: () => ({
     meta: [
-      { title: "Minha conta — Criattor" },
+      { title: "Minha conta — Hagoth" },
       { name: "description", content: "Gerencie seus dados, plano, consumo mensal e envie sugestões." },
-      { property: "og:title", content: "Minha conta — Criattor" },
+      { property: "og:title", content: "Minha conta — Hagoth" },
       { property: "og:description", content: "Dados do perfil, plano e consumo." },
     ],
   }),

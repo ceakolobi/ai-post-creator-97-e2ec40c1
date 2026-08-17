@@ -12,10 +12,10 @@ import { useAuth } from "@/hooks/useAuth";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Entrar — Criattor" },
-      { name: "description", content: "Acesse sua conta Criattor e continue criando posts para Instagram." },
-      { property: "og:title", content: "Entrar — Criattor" },
-      { property: "og:description", content: "Acesse sua conta Criattor." },
+      { title: "Entrar — Hagoth" },
+      { name: "description", content: "Acesse sua conta Hagoth e continue criando posts para Instagram." },
+      { property: "og:title", content: "Entrar — Hagoth" },
+      { property: "og:description", content: "Acesse sua conta Hagoth." },
     ],
   }),
   component: LoginPage,
