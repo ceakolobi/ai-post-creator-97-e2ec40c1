@@ -1,11 +1,37 @@
-import { Check } from "lucide-react";
+import { Check, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PLANOS } from "@/lib/plans";
+import { montarCheckoutUrl, usePlanCheckouts } from "@/lib/checkout";
+import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 
 export function Planos({ compact = false }: { compact?: boolean }) {
+  const { data: checkouts } = usePlanCheckouts();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  function assinar(planoId: string, nome: string) {
+    const link = checkouts?.find((c) => c.plano_id === planoId)?.checkout_url;
+    if (!link) {
+      toast.info("Checkout em configuração", {
+        description: `O link de pagamento do plano ${nome} ainda está sendo publicado. Tente novamente em instantes.`,
+      });
+      return;
+    }
+    const url = montarCheckoutUrl(link, {
+      email: user?.email ?? null,
+      userId: user?.id ?? null,
+      planoId,
+    });
+    window.open(url, "_blank", "noopener,noreferrer");
+    if (user) {
+      navigate({ to: "/aguardando-pagamento", search: { plano: nome } });
+    }
+  }
+
   return (
     <div className={cn("grid gap-6", compact ? "sm:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-2 xl:grid-cols-4")}>
       {PLANOS.map((plano) => (
@@ -35,17 +61,19 @@ export function Planos({ compact = false }: { compact?: boolean }) {
               </li>
             ))}
           </ul>
-          <Button
-            className="mt-6"
-            variant={plano.destaque ? "hero" : "outline"}
-            onClick={() =>
-              toast.success("Interesse registrado!", {
-                description: `Avisaremos assim que o plano ${plano.nome} estiver disponível para contratação.`,
-              })
-            }
-          >
-            {plano.id === "trial" ? "Incluso no cadastro" : "Tenho interesse"}
-          </Button>
+          {plano.id === "trial" ? (
+            <Button className="mt-6" variant="outline" disabled>
+              Incluso no cadastro
+            </Button>
+          ) : (
+            <Button
+              className="mt-6"
+              variant={plano.destaque ? "hero" : "outline"}
+              onClick={() => assinar(plano.id, plano.nome)}
+            >
+              Assinar agora <ExternalLink className="size-4" />
+            </Button>
+          )}
         </div>
       ))}
     </div>
