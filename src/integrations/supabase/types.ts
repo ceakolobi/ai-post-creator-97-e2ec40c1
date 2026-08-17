@@ -29,6 +29,47 @@ export type Database = {
         }
         Relationships: []
       }
+      agendamentos: {
+        Row: {
+          agendado_para: string
+          concluido: boolean
+          created_at: string
+          id: string
+          observacao: string | null
+          post_id: string
+          rede: string
+          user_id: string
+        }
+        Insert: {
+          agendado_para: string
+          concluido?: boolean
+          created_at?: string
+          id?: string
+          observacao?: string | null
+          post_id: string
+          rede?: string
+          user_id: string
+        }
+        Update: {
+          agendado_para?: string
+          concluido?: boolean
+          created_at?: string
+          id?: string
+          observacao?: string | null
+          post_id?: string
+          rede?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agendamentos_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts_gerados"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       feedback: {
         Row: {
           created_at: string
