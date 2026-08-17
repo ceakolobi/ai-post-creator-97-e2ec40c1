@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { LayoutDashboard, Sparkles, Images, User, Shield, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, Sparkles, Images, CalendarClock, User, Shield, LogOut, Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
@@ -13,6 +13,7 @@ const links = [
   { to: "/dashboard", label: "Painel", icon: LayoutDashboard },
   { to: "/criar", label: "Criar post", icon: Sparkles },
   { to: "/meus-posts", label: "Meus posts", icon: Images },
+  { to: "/agenda", label: "Agenda", icon: CalendarClock },
   { to: "/minha-conta", label: "Minha conta", icon: User },
 ] as const;
 
