@@ -20,10 +20,10 @@ export const PLANOS: Plano[] = [
   {
     id: "essencial",
     nome: "Essencial",
-    limite: 30,
-    preco: "R$ 49/mês",
+    limite: 80,
+    preco: "R$ 19/mês",
     publico: "Autônomos e pequenos negócios",
-    beneficios: ["30 posts por mês", "Todos os tons de voz", "Favoritos e histórico", "Suporte por e-mail"],
+    beneficios: ["80 posts por mês", "Todos os tons de voz", "Favoritos e histórico", "Suporte por e-mail"],
   },
   {
     id: "profissional",
