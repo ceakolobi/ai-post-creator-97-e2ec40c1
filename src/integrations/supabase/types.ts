@@ -137,16 +137,19 @@ export type Database = {
         Row: {
           checkout_url: string
           plano_id: string
+          produto_id: string | null
           updated_at: string
         }
         Insert: {
           checkout_url: string
           plano_id: string
+          produto_id?: string | null
           updated_at?: string
         }
         Update: {
           checkout_url?: string
           plano_id?: string
+          produto_id?: string | null
           updated_at?: string
         }
         Relationships: []
