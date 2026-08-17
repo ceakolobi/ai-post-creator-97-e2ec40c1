@@ -3,6 +3,7 @@ import { Copy, Check, Download, Heart, RefreshCw, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import type { Post } from "@/lib/data";
+import { classesPosicao, comporComLogo, type MarcaConfig } from "@/lib/logo";
 import { cn } from "@/lib/utils";
 
 export function legendaCompleta(post: Pick<Post, "legenda" | "hashtags">) {
@@ -11,11 +12,13 @@ export function legendaCompleta(post: Pick<Post, "legenda" | "hashtags">) {
 
 export function PostPreview({
   post,
+  marca,
   onFavoritar,
   onExcluir,
   onGerarOutra,
 }: {
   post: Post;
+  marca?: MarcaConfig | null;
   onFavoritar?: () => void;
   onExcluir?: () => void;
   onGerarOutra?: () => void;
@@ -36,12 +39,18 @@ export function PostPreview({
   async function baixar() {
     if (!post.imagem_url) return;
     try {
-      const r = await fetch(post.imagem_url);
-      const blob = await r.blob();
+      let blob: Blob | null = null;
+      if (marca) {
+        blob = await comporComLogo(post.imagem_url, marca).catch(() => null);
+      }
+      if (!blob) {
+        const r = await fetch(post.imagem_url);
+        blob = await r.blob();
+      }
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `criattor-${post.id.slice(0, 8)}.jpg`;
+      a.download = `criattor-${post.id.slice(0, 8)}.png`;
       a.click();
       URL.revokeObjectURL(url);
       toast.success("Download iniciado");
@@ -54,13 +63,23 @@ export function PostPreview({
     <div className="grid gap-6 lg:grid-cols-[minmax(0,420px)_1fr]">
       <div className="overflow-hidden rounded-2xl border border-border bg-card">
         {post.imagem_url ? (
-          <img
-            src={post.imagem_url}
-            alt={post.titulo_curto ?? "Imagem gerada para o post"}
-            width={1080}
-            height={1080}
-            className="aspect-square w-full object-cover"
-          />
+          <div className="relative">
+            <img
+              src={post.imagem_url}
+              alt={post.titulo_curto ?? "Imagem gerada para o post"}
+              width={1080}
+              height={1080}
+              className="aspect-square w-full object-cover"
+            />
+            {marca && (
+              <img
+                src={marca.url}
+                alt="Logo da marca"
+                style={{ width: `${marca.tamanho}%`, opacity: marca.opacidade / 100 }}
+                className={cn("pointer-events-none absolute object-contain", classesPosicao(marca.posicao))}
+              />
+            )}
+          </div>
         ) : (
           <div className="flex aspect-square w-full items-center justify-center bg-secondary text-sm text-muted-foreground">
             Sem imagem
@@ -71,6 +90,7 @@ export function PostPreview({
           {post.hashtags && <p className="text-sm text-accent">{post.hashtags}</p>}
         </div>
       </div>
+
 
       <div className="space-y-4">
         <div>

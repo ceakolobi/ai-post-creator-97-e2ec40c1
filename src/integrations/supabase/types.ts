@@ -107,6 +107,10 @@ export type Database = {
           created_at: string
           email: string | null
           id: string
+          logo_opacidade: number
+          logo_posicao: string
+          logo_tamanho: number
+          logo_url: string | null
           nome: string | null
           nome_negocio: string | null
           telefone: string | null
@@ -116,6 +120,10 @@ export type Database = {
           created_at?: string
           email?: string | null
           id: string
+          logo_opacidade?: number
+          logo_posicao?: string
+          logo_tamanho?: number
+          logo_url?: string | null
           nome?: string | null
           nome_negocio?: string | null
           telefone?: string | null
@@ -125,6 +133,10 @@ export type Database = {
           created_at?: string
           email?: string | null
           id?: string
+          logo_opacidade?: number
+          logo_posicao?: string
+          logo_tamanho?: number
+          logo_url?: string | null
           nome?: string | null
           nome_negocio?: string | null
           telefone?: string | null
