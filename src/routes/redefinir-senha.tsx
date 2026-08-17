@@ -11,9 +11,9 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/redefinir-senha")({
   head: () => ({
     meta: [
-      { title: "Definir nova senha — Criattor" },
-      { name: "description", content: "Escolha uma nova senha para a sua conta Criattor." },
-      { property: "og:title", content: "Definir nova senha — Criattor" },
+      { title: "Definir nova senha — Hagoth" },
+      { name: "description", content: "Escolha uma nova senha para a sua conta Hagoth." },
+      { property: "og:title", content: "Definir nova senha — Hagoth" },
       { property: "og:description", content: "Escolha uma nova senha para a sua conta." },
     ],
   }),

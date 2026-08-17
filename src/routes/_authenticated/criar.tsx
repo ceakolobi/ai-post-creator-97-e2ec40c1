@@ -35,9 +35,9 @@ import { gerarPostComIA } from "@/lib/ai-generator.functions.ts";
 export const Route = createFileRoute("/_authenticated/criar")({
   head: () => ({
     meta: [
-      { title: "Criar post — Criattor" },
+      { title: "Criar post — Hagoth" },
       { name: "description", content: "Gere legenda, hashtags e imagem para o seu próximo post de Instagram." },
-      { property: "og:title", content: "Criar post — Criattor" },
+      { property: "og:title", content: "Criar post — Hagoth" },
       { property: "og:description", content: "Gere legenda, hashtags e imagem em segundos." },
     ],
   }),

@@ -79,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Criattor — Posts para Instagram com IA" },
+      { title: "Hagoth — Posts para Instagram com IA" },
       {
         name: "description",
         content: "Gere legendas, hashtags e imagens exclusivas para o Instagram em segundos.",

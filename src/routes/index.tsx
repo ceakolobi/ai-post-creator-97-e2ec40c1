@@ -3,18 +3,18 @@ import { Sparkles, Image as ImageIcon, History, Wand2, PencilLine, Copy, ArrowRi
 import { Button } from "@/components/ui/button";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { Planos } from "@/components/Planos";
-import heroImg from "@/assets/hero-criattor.jpg";
+import heroImg from "@/assets/hero-hagoth.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Criattor — Posts profissionais para Instagram em segundos" },
+      { title: "Hagoth — Posts profissionais para Instagram em segundos" },
       {
         name: "description",
         content:
           "Descreva seu nicho e receba legenda, hashtags e uma imagem exclusiva criada por IA. Teste grátis por 7 dias.",
       },
-      { property: "og:title", content: "Criattor — Posts para Instagram com IA" },
+      { property: "og:title", content: "Hagoth — Posts para Instagram com IA" },
       {
         property: "og:description",
         content: "Legenda, hashtags e imagem exclusiva em segundos. Feito para quem não é designer.",
@@ -74,7 +74,7 @@ function Landing() {
                 Posts profissionais para Instagram em <span className="text-gradient">segundos</span>
               </h1>
               <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-                Descreva seu nicho e o Criattor entrega legenda, hashtags e uma imagem exclusiva criada por
+                Descreva seu nicho e o Hagoth entrega legenda, hashtags e uma imagem exclusiva criada por
                 inteligência artificial. Pronto para copiar e publicar.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -91,7 +91,7 @@ function Landing() {
             <div className="animate-floaty">
               <img
                 src={heroImg}
-                alt="Interface do Criattor gerando posts de Instagram com inteligência artificial"
+                alt="Interface do Hagoth gerando posts de Instagram com inteligência artificial"
                 width={1408}
                 height={1008}
                 className="w-full rounded-3xl border border-border"
@@ -150,7 +150,7 @@ function Landing() {
               <div key={i} className="rounded-2xl border border-dashed border-border bg-card/50 p-6">
                 <Quote className="size-5 text-accent" />
                 <p className="mt-3 text-sm text-muted-foreground">
-                  Espaço reservado para o depoimento de um cliente Criattor.
+                  Espaço reservado para o depoimento de um cliente Hagoth.
                 </p>
                 <p className="mt-4 text-xs text-muted-foreground">Em breve</p>
               </div>
@@ -165,7 +165,7 @@ function Landing() {
               <div className="rounded-xl border border-border bg-card p-5">
                 <h3 className="font-medium text-accent">Eu tenho Kiwify, posso usar?</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  Sim! Você pode usar a Kiwify para vender o seu acesso ao Criattor ou integrar o checkout da Kiwify caso esteja criando uma oferta personalizada. Nosso sistema é flexível e focado em gerar o conteúdo, enquanto você mantém o controle total das suas vendas em sua plataforma de preferência.
+                  Sim! Você pode usar a Kiwify para vender o seu acesso ao Hagoth ou integrar o checkout da Kiwify caso esteja criando uma oferta personalizada. Nosso sistema é flexível e focado em gerar o conteúdo, enquanto você mantém o controle total das suas vendas em sua plataforma de preferência.
                 </p>
               </div>
             </div>

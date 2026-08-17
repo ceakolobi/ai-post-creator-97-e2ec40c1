@@ -13,12 +13,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/_authenticated/agenda")({
   head: () => ({
     meta: [
-      { title: "Agenda de publicações — Criattor" },
+      { title: "Agenda de publicações — Hagoth" },
       {
         name: "description",
         content: "Organize quando publicar cada post no Instagram, Facebook, TikTok e LinkedIn.",
       },
-      { property: "og:title", content: "Agenda de publicações — Criattor" },
+      { property: "og:title", content: "Agenda de publicações — Hagoth" },
       { property: "og:description", content: "Lembretes de publicação com imagem e legenda prontas." },
     ],
   }),

@@ -1,10 +1,10 @@
 # Insta Creator Suite
 
-PROMPT PARA O LOVABLE — Criattor (SaaS de geração de posts para Instagram com IA)
+PROMPT PARA O LOVABLE — Hagoth (SaaS de geração de posts para Instagram com IA)
 
-Construa uma aplicação web completa chamada Criattor. É um SaaS onde o usuário descreve seu nicho e recebe posts prontos para Instagram (legenda + hashtags + imagem gerada por IA), com histórico, área do cliente e painel administrativo.
+Construa uma aplicação web completa chamada Hagoth. É um SaaS onde o usuário descreve seu nicho e recebe posts prontos para Instagram (legenda + hashtags + imagem gerada por IA), com histórico, área do cliente e painel administrativo.
 
-O "motor" de geração já existe fora do app: é um workflow n8n exposto por webhook. O Criattor não gera conteúdo por conta própria — ele coleta os dados do usuário, chama o webhook, e exibe/salva o resultado.
+O "motor" de geração já existe fora do app: é um workflow n8n exposto por webhook. O Hagoth não gera conteúdo por conta própria — ele coleta os dados do usuário, chama o webhook, e exibe/salva o resultado.
 
 1. STACK E INFRAESTRUTURA
 
@@ -20,7 +20,7 @@ Variáveis de ambiente para a URL do webhook n8n (VITE_N8N_WEBHOOK_URL) — nunc
 
 2. IDENTIDADE VISUAL
 
-Nome: Criattor Posicionamento: ferramenta de IA criativa, moderna, para pequenos negócios e criadores de conteúdo. Deve transmitir criatividade + tecnologia, sem parecer amadora.
+Nome: Hagoth Posicionamento: ferramenta de IA criativa, moderna, para pequenos negócios e criadores de conteúdo. Deve transmitir criatividade + tecnologia, sem parecer amadora.
 
 Paleta (dark mode como padrão, com toggle para light):
 
@@ -74,7 +74,7 @@ Rodapé com links legais (Termos de Uso, Política de Privacidade — criar pág
 
 /criar-conta — nome completo, e-mail, telefone/WhatsApp, nome do negócio/marca (opcional), senha
 
-Na lateral (ou acima no mobile), exibir descrição do produto: o que o Criattor faz, o que está incluso, e destaque do teste grátis
+Na lateral (ou acima no mobile), exibir descrição do produto: o que o Hagoth faz, o que está incluso, e destaque do teste grátis
 
 /recuperar-senha — fluxo padrão do Supabase
 

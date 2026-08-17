@@ -14,9 +14,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/_authenticated/meus-posts")({
   head: () => ({
     meta: [
-      { title: "Meus posts — Criattor" },
+      { title: "Meus posts — Hagoth" },
       { name: "description", content: "Histórico completo dos posts gerados, com busca, favoritos e download." },
-      { property: "og:title", content: "Meus posts — Criattor" },
+      { property: "og:title", content: "Meus posts — Hagoth" },
       { property: "og:description", content: "Seu histórico de posts gerados pela IA." },
     ],
   }),
