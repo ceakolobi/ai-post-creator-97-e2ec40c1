@@ -126,12 +126,12 @@ function CriarPost() {
           .from("posts_gerados")
           .insert({
             user_id: user.id,
-            nicho: resposta.nicho || nicho.trim(),
+            nicho: nicho.trim(),
             palavras_chave: palavras.trim(),
-            titulo_curto: resposta.titulo_curto ?? null,
-            legenda: resposta.legenda!,
+            titulo_curto: (resposta as any).titulo_curto ?? null,
+            legenda: (resposta as any).legenda!,
             hashtags,
-            imagem_url: resposta.imagem_url ?? null,
+            imagem_url: (resposta as any).imagem_url ?? null,
             formato,
             tom_de_voz: tom || null,
           })
