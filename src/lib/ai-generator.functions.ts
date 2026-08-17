@@ -35,7 +35,7 @@ Responda APENAS em JSON no seguinte formato:
         response_format: { type: "json_object" },
       });
 
-      const responseContent = textoResponse.choices[0].message.content || "{}";
+      const responseContent = textoResponse.choices[0]?.message?.content || "{}";
       const conteudo = JSON.parse(responseContent);
 
       // 2. Gerar Imagem usando o prompt gerado
@@ -48,11 +48,11 @@ Responda APENAS em JSON no seguinte formato:
 
       return {
         sucesso: true,
-        nicho: data.nicho, // Garantindo que o nicho retorne para o frontend
+        nicho: data.nicho,
         titulo_curto: conteudo.titulo_curto || `${nicho}: Dica do dia`,
         legenda: conteudo.legenda || "",
         hashtags: (conteudo.hashtags || []) as string[],
-        imagem_url: imagemResponse.data[0].url || "",
+        imagem_url: imagemResponse.data[0]?.url || "",
       };
     } catch (error) {
       console.error("Erro na geração por IA:", error);
