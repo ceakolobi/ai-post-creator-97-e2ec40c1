@@ -17,7 +17,7 @@ export const gerarPostComIA = createServerFn({ method: "POST" })
 
     const systemPrompt = `Você é um especialista em marketing para Instagram.
 Gere um post profissional para o nicho "${nicho}" com as palavras-chave "${palavras_chave}".
-O tom de voz deve ser "${tom_de_voz}" e o formato é "${formato}".
+O tom de voz deve ser "${tom_de_voz}" and o formato é "${formato}".
 Responda APENAS em JSON no seguinte formato:
 {
   "titulo_curto": "Título chamativo",
@@ -46,13 +46,15 @@ Responda APENAS em JSON no seguinte formato:
         size: "1024x1024",
       });
 
+      const url = imagemResponse.data && imagemResponse.data[0] ? imagemResponse.data[0].url : "";
+
       return {
         sucesso: true,
         nicho: data.nicho,
         titulo_curto: conteudo.titulo_curto || `${nicho}: Dica do dia`,
         legenda: conteudo.legenda || "",
         hashtags: (conteudo.hashtags || []) as string[],
-        imagem_url: imagemResponse.data[0]?.url || "",
+        imagem_url: url || "",
       };
     } catch (error) {
       console.error("Erro na geração por IA:", error);
