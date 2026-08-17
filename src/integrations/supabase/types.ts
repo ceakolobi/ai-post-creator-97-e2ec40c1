@@ -94,6 +94,63 @@ export type Database = {
         }
         Relationships: []
       }
+      pagamentos: {
+        Row: {
+          created_at: string
+          email: string
+          evento: string | null
+          id: string
+          order_id: string | null
+          payload: Json | null
+          plano_id: string | null
+          status: string
+          user_id: string | null
+          valor: number | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          evento?: string | null
+          id?: string
+          order_id?: string | null
+          payload?: Json | null
+          plano_id?: string | null
+          status: string
+          user_id?: string | null
+          valor?: number | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          evento?: string | null
+          id?: string
+          order_id?: string | null
+          payload?: Json | null
+          plano_id?: string | null
+          status?: string
+          user_id?: string | null
+          valor?: number | null
+        }
+        Relationships: []
+      }
+      plan_checkouts: {
+        Row: {
+          checkout_url: string
+          plano_id: string
+          updated_at: string
+        }
+        Insert: {
+          checkout_url: string
+          plano_id: string
+          updated_at?: string
+        }
+        Update: {
+          checkout_url?: string
+          plano_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       posts_gerados: {
         Row: {
           created_at: string
