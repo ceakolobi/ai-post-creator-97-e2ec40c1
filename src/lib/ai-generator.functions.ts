@@ -13,51 +13,76 @@ const gerarPostInputSchema = z.object({
 export const gerarPostComIA = createServerFn({ method: "POST" })
   .inputValidator((data) => gerarPostInputSchema.parse(data))
   .handler(async ({ data }) => {
-    const { nicho, palavras_chave, tom_de_voz, formato } = data;
+    const { nicho, palavras_chave, tom_de_voz, formato, cores_marca, user_id } = data;
 
     const systemPrompt = `Você é um especialista em marketing para Instagram.
 Gere um post profissional para o nicho "${nicho}" com as palavras-chave "${palavras_chave}".
-O tom de voz deve ser "${tom_de_voz}" and o formato é "${formato}".
-Responda APENAS em JSON no seguinte formato:
+O tom de voz deve ser "${tom_de_voz}" e o formato é "${formato}".${
+      cores_marca ? `\nCores da marca: ${cores_marca}.` : ""
+    }
+Responda APENAS em JSON válido no seguinte formato:
 {
   "titulo_curto": "Título chamativo",
-  "legenda": "Legenda completa do post",
+  "legenda": "Legenda completa do post em português",
   "hashtags": ["#tag1", "#tag2"],
-  "prompt_imagem": "Prompt detalhado em inglês para gerar uma imagem fotorrealista e profissional para este post no DALL-E 3"
+  "prompt_imagem": "Prompt detalhado em inglês para gerar uma imagem fotorrealista e profissional para este post"
 }`;
 
+    const { gerarTextoIA, gerarImagemIA } = await import("@/lib/ai-gateway.server");
+
+    let conteudo: {
+      titulo_curto?: string;
+      legenda?: string;
+      hashtags?: string[];
+      prompt_imagem?: string;
+    } = {};
+
     try {
-      // 1. Gerar Texto e Prompt de Imagem usando Lovable AI Gateway
-      const { ai_gateway } = await import("@/lib/ai-gateway.server");
-      const textoResponse = await ai_gateway.chat.completions.create({
-        model: "gpt-4o",
-        messages: [{ role: "system", content: systemPrompt }],
-        response_format: { type: "json_object" },
-      });
-
-      const responseContent = textoResponse.choices[0]?.message?.content || "{}";
-      const conteudo = JSON.parse(responseContent);
-
-      // 2. Gerar Imagem usando o prompt gerado
-      const imagemResponse = await ai_gateway.images.generate({
-        model: "dall-e-3",
-        prompt: conteudo.prompt_imagem || `Professional Instagram post for ${nicho}, ${palavras_chave}, high quality, realistic`,
-        n: 1,
-        size: "1024x1024",
-      });
-
-      const url = imagemResponse.data && imagemResponse.data[0] ? imagemResponse.data[0].url : "";
-
-      return {
-        sucesso: true,
-        nicho: data.nicho,
-        titulo_curto: conteudo.titulo_curto || `${nicho}: Dica do dia`,
-        legenda: conteudo.legenda || "",
-        hashtags: (conteudo.hashtags || []) as string[],
-        imagem_url: url || "",
-      };
+      const bruto = await gerarTextoIA(systemPrompt);
+      const limpo = bruto.replace(/^```(?:json)?/i, "").replace(/```$/, "").trim();
+      conteudo = JSON.parse(limpo);
     } catch (error) {
-      console.error("Erro na geração por IA:", error);
-      throw new Error("Falha ao gerar conteúdo com a IA nativa.");
+      console.error("Erro ao gerar texto com IA:", error);
+      throw new Error(
+        error instanceof Error && error.message.includes("402")
+          ? "Créditos de IA esgotados. Adicione créditos no workspace para continuar."
+          : "Não conseguimos gerar o texto do post agora. Tente novamente.",
+      );
     }
+
+    let imagem_url = "";
+    try {
+      const b64 = await gerarImagemIA(
+        conteudo.prompt_imagem ||
+          `Professional Instagram post image for ${nicho}, ${palavras_chave}, high quality, realistic`,
+      );
+
+      if (b64) {
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+        const path = `${user_id}/${crypto.randomUUID()}.png`;
+        const { error: upErr } = await supabaseAdmin.storage
+          .from("posts-instagram")
+          .upload(path, bytes, { contentType: "image/png", upsert: true });
+        if (upErr) throw upErr;
+        const { data: signed } = await supabaseAdmin.storage
+          .from("posts-instagram")
+          .createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
+        imagem_url = signed?.signedUrl ?? "";
+      }
+    } catch (error) {
+      // Texto já foi gerado: seguimos sem imagem em vez de falhar o post inteiro.
+      console.error("Erro ao gerar/salvar imagem:", error);
+    }
+
+    const hashtags = Array.isArray(conteudo.hashtags) ? conteudo.hashtags : [];
+
+    return {
+      sucesso: true,
+      nicho,
+      titulo_curto: conteudo.titulo_curto || `${nicho}: Dica do dia`,
+      legenda: conteudo.legenda || "",
+      hashtags,
+      imagem_url,
+    };
   });
