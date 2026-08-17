@@ -95,7 +95,7 @@ export const Route = createFileRoute("/api/public/kiwify-webhook")({
           evento: payload.webhook_event_type ?? null,
           order_id: payload.order_id ?? null,
           valor: payload.Commissions?.charge_amount ?? null,
-          payload: payload as unknown as Record<string, unknown>,
+          payload: payload as never,
         });
 
         if (perfil?.id && (ativar || desativar)) {
