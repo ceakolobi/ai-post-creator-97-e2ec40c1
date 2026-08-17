@@ -28,11 +28,11 @@ export const PLANOS: Plano[] = [
   {
     id: "profissional",
     nome: "Profissional",
-    limite: 100,
-    preco: "R$ 129/mês",
+    limite: 200,
+    preco: "R$ 49/mês",
     publico: "Negócios com presença ativa",
     destaque: true,
-    beneficios: ["100 posts por mês", "Cores da marca", "Prioridade na geração", "Suporte prioritário"],
+    beneficios: ["200 posts por mês", "Cores da marca", "Prioridade na geração", "Suporte prioritário"],
   },
   {
     id: "agencia",
