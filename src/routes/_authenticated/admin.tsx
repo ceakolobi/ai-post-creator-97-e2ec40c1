@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EmptyState } from "@/components/EmptyState";
+import { AdminCheckouts } from "@/components/AdminCheckouts";
 import { useIsAdmin, type Post, type Profile, type Subscription } from "@/lib/data";
 import { PLANOS, nomeDoPlano } from "@/lib/plans";
 
