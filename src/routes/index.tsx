@@ -1,5 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Sparkles, Image as ImageIcon, History, Wand2, PencilLine, Copy, ArrowRight, Quote } from "lucide-react";
+import {
+  Sparkles,
+  Image as ImageIcon,
+  History,
+  Wand2,
+  PencilLine,
+  Copy,
+  ArrowRight,
+  Quote,
+  Check,
+  X,
+  CalendarClock,
+  Stamp,
+  MessageSquareHeart,
+  ShieldCheck,
+  Download,
+  Users,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { Planos } from "@/components/Planos";
