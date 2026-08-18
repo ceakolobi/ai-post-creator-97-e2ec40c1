@@ -8,31 +8,82 @@ const gerarPostInputSchema = z.object({
   cores_marca: z.string().optional(),
   formato: z.string(),
   user_id: z.string(),
+  titulo_personalizado: z.string().max(60).optional(),
+  destaques: z.array(z.string().max(40)).max(3).optional(),
+  cta: z.string().max(60).optional(),
+  evento: z
+    .object({
+      tipo: z.string().max(40).optional(),
+      nome: z.string().max(60).optional(),
+      data: z.string().max(30).optional(),
+      hora: z.string().max(20).optional(),
+      local: z.string().max(80).optional(),
+    })
+    .optional(),
 });
 
 export const gerarPostComIA = createServerFn({ method: "POST" })
   .inputValidator((data) => gerarPostInputSchema.parse(data))
   .handler(async ({ data }) => {
-    const { nicho, palavras_chave, tom_de_voz, formato, cores_marca, user_id } = data;
+    const {
+      nicho,
+      palavras_chave,
+      tom_de_voz,
+      formato,
+      cores_marca,
+      user_id,
+      titulo_personalizado,
+      destaques,
+      cta,
+      evento,
+    } = data;
+
+    const listaDestaques = (destaques ?? []).map((d) => d.trim()).filter(Boolean);
+    const temEvento = !!(evento && (evento.nome || evento.data || evento.hora || evento.local));
+    const linhaEvento = temEvento
+      ? [
+          evento?.tipo ? `Tipo: ${evento.tipo}` : "",
+          evento?.nome ? `Nome: ${evento.nome}` : "",
+          evento?.data ? `Data: ${evento.data}` : "",
+          evento?.hora ? `Horário: ${evento.hora}` : "",
+          evento?.local ? `Local: ${evento.local}` : "",
+        ]
+          .filter(Boolean)
+          .join(" | ")
+      : "";
 
     const systemPrompt = `Você é um especialista em marketing para Instagram focado em alto engajamento.
 Gere um post profissional para o nicho "${nicho}" com as palavras-chave "${palavras_chave}".
 O tom de voz deve ser "${tom_de_voz}" e o formato é "${formato}".${
       cores_marca ? `\nCores da marca: ${cores_marca}.` : ""
+    }${
+      titulo_personalizado
+        ? `\nTÍTULO OBRIGATÓRIO NA IMAGEM (use exatamente este texto): "${titulo_personalizado}"`
+        : ""
+    }${
+      listaDestaques.length
+        ? `\nDESTAQUES (marcadores curtos que devem aparecer na imagem, no máximo ${listaDestaques.length} linhas, texto exato):\n- ${listaDestaques.join("\n- ")}`
+        : ""
+    }${cta ? `\nCHAMADA PARA AÇÃO (rodapé discreto da imagem, texto exato): "${cta}"` : ""}${
+      linhaEvento
+        ? `\nEVENTO — estes dados DEVEM aparecer na imagem de forma legível e organizada (bloco de data/hora destacado): ${linhaEvento}`
+        : ""
     }
 
 REGRAS DE CONTEÚDO:
-1. TÍTULO NA IMAGEM: Crie um título curto e impactante (HEADLINE) para ser usado na imagem.
-2. TEXTO CURTO: Evite exageros. Use o básico que converte e gera engajamento.
-3. ESTÉTICA: A imagem deve ser linda e combinar perfeitamente com o nicho escolhido.
+1. TÍTULO NA IMAGEM: curto e impactante (HEADLINE).
+2. TEXTO CURTO: nada de poluição visual. No máximo título + ${listaDestaques.length || 0} marcadores${temEvento ? " + bloco de data/hora/local" : ""}${cta ? " + 1 linha de CTA" : ""}.
+3. ESTÉTICA: imagem linda, hierarquia clara, muito espaço em branco, tipografia elegante e coerente com o nicho.
+4. Todo texto na imagem em português do Brasil, sem erros de ortografia.
 
 Responda APENAS em JSON válido no seguinte formato:
 {
   "titulo_curto": "Título chamativo (Headline)",
-  "legenda": "Legenda engajadora em português",
+  "legenda": "Legenda engajadora em português${temEvento ? ", citando data, horário e local do evento" : ""}",
   "hashtags": ["#tag1", "#tag2"],
-  "prompt_imagem": "Prompt detalhado em inglês para gerar uma imagem profissional. IMPORTANTE: O prompt deve incluir instruções para a IA escrever o texto do 'titulo_curto' de forma legível e elegante na imagem, garantindo harmonia com o nicho ${nicho}."
+  "prompt_imagem": "Prompt detalhado em inglês para gerar uma imagem profissional. IMPORTANTE: o prompt deve listar exatamente os textos que precisam aparecer na imagem (título${listaDestaques.length ? ", marcadores" : ""}${temEvento ? ", data/hora/local" : ""}${cta ? ", CTA" : ""}) e pedir tipografia legível, elegante e sem poluição visual, harmonizada com o nicho ${nicho}."
 }`;
+
 
     const { gerarTextoIA, gerarImagemIA } = await import("@/lib/ai-gateway.server");
 
@@ -86,7 +137,7 @@ Responda APENAS em JSON válido no seguinte formato:
     return {
       sucesso: true,
       nicho,
-      titulo_curto: conteudo.titulo_curto || `${nicho}: Dica do dia`,
+      titulo_curto: titulo_personalizado || conteudo.titulo_curto || `${nicho}: Dica do dia`,
       legenda: conteudo.legenda || "",
       hashtags,
       imagem_url,

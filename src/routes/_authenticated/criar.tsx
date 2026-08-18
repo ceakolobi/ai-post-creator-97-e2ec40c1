@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -54,6 +55,17 @@ const MENSAGENS = [
 
 const TONS = ["Profissional", "Descontraído", "Inspirador", "Direto ao ponto", "Divertido"];
 
+const TIPOS_EVENTO = [
+  "Festa",
+  "Palestra",
+  "Conferência",
+  "Workshop",
+  "Curso",
+  "Live",
+  "Promoção",
+  "Inauguração",
+];
+
 function CriarPost() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -70,6 +82,20 @@ function CriarPost() {
   const [cor2, setCor2] = useState("#D946EF");
   const [usarCores, setUsarCores] = useState(false);
   const [formato] = useState("post único");
+
+  const [usarTitulo, setUsarTitulo] = useState(false);
+  const [tituloPersonalizado, setTituloPersonalizado] = useState("");
+  const [usarDestaques, setUsarDestaques] = useState(false);
+  const [destaques, setDestaques] = useState<string[]>(["", "", ""]);
+  const [usarCta, setUsarCta] = useState(false);
+  const [cta, setCta] = useState("");
+  const [usarEvento, setUsarEvento] = useState(false);
+  const [eventoTipo, setEventoTipo] = useState("");
+  const [eventoNome, setEventoNome] = useState("");
+  const [eventoData, setEventoData] = useState("");
+  const [eventoHora, setEventoHora] = useState("");
+  const [eventoLocal, setEventoLocal] = useState("");
+
 
   const [gerando, setGerando] = useState(false);
   const [mensagem, setMensagem] = useState(MENSAGENS[0]!);
@@ -110,7 +136,26 @@ function CriarPost() {
           cores_marca: usarCores ? `${cor1}, ${cor2}` : "",
           formato,
           user_id: user.id,
+          ...(usarTitulo && tituloPersonalizado.trim()
+            ? { titulo_personalizado: tituloPersonalizado.trim().slice(0, 60) }
+            : {}),
+          ...(usarDestaques && destaques.some((d) => d.trim())
+            ? { destaques: destaques.map((d) => d.trim().slice(0, 40)).filter(Boolean) }
+            : {}),
+          ...(usarCta && cta.trim() ? { cta: cta.trim().slice(0, 60) } : {}),
+          ...(usarEvento
+            ? {
+                evento: {
+                  tipo: eventoTipo,
+                  nome: eventoNome.trim().slice(0, 60),
+                  data: eventoData,
+                  hora: eventoHora,
+                  local: eventoLocal.trim().slice(0, 80),
+                },
+              }
+            : {}),
         }
+
       });
 
       const hashtags = normalizarHashtags(resposta.hashtags);
@@ -270,6 +315,136 @@ function CriarPost() {
             </div>
           )}
         </div>
+
+        <div className="space-y-4 rounded-2xl border border-border/70 bg-secondary/30 p-4 md:col-span-2">
+          <div>
+            <p className="text-sm font-medium">Extras do post (opcionais)</p>
+            <p className="text-xs text-muted-foreground">
+              Marque só o que quiser na arte. Textos curtos mantêm o post limpo e bonito.
+            </p>
+          </div>
+
+          <label className="flex items-start gap-3 text-sm">
+            <Checkbox checked={usarTitulo} onCheckedChange={(v) => setUsarTitulo(v === true)} className="mt-0.5" />
+            <span>
+              <span className="font-medium">Título próprio na imagem</span>
+              <span className="block text-xs text-muted-foreground">Se desmarcado, a IA cria o título.</span>
+            </span>
+          </label>
+          {usarTitulo && (
+            <div className="space-y-1 pl-7">
+              <Input
+                value={tituloPersonalizado}
+                maxLength={60}
+                onChange={(e) => setTituloPersonalizado(e.target.value)}
+                placeholder="Ex.: Sua pele renovada em 1 sessão"
+              />
+              <p className="text-xs text-muted-foreground">{tituloPersonalizado.length}/60 caracteres</p>
+            </div>
+          )}
+
+          <label className="flex items-start gap-3 text-sm">
+            <Checkbox
+              checked={usarDestaques}
+              onCheckedChange={(v) => setUsarDestaques(v === true)}
+              className="mt-0.5"
+            />
+            <span>
+              <span className="font-medium">Marcadores de destaque</span>
+              <span className="block text-xs text-muted-foreground">Até 3 frases bem curtas (máx. 40 caracteres).</span>
+            </span>
+          </label>
+          {usarDestaques && (
+            <div className="space-y-2 pl-7">
+              {destaques.map((d, i) => (
+                <Input
+                  key={i}
+                  value={d}
+                  maxLength={40}
+                  onChange={(e) =>
+                    setDestaques((atual) => atual.map((item, idx) => (idx === i ? e.target.value : item)))
+                  }
+                  placeholder={`Destaque ${i + 1} (ex.: Agende pelo WhatsApp)`}
+                />
+              ))}
+            </div>
+          )}
+
+          <label className="flex items-start gap-3 text-sm">
+            <Checkbox checked={usarCta} onCheckedChange={(v) => setUsarCta(v === true)} className="mt-0.5" />
+            <span>
+              <span className="font-medium">Chamada para ação</span>
+              <span className="block text-xs text-muted-foreground">Uma linha discreta no rodapé da arte.</span>
+            </span>
+          </label>
+          {usarCta && (
+            <div className="pl-7">
+              <Input
+                value={cta}
+                maxLength={60}
+                onChange={(e) => setCta(e.target.value)}
+                placeholder="Ex.: Chame no direct • @seuperfil"
+              />
+            </div>
+          )}
+
+          <label className="flex items-start gap-3 text-sm">
+            <Checkbox checked={usarEvento} onCheckedChange={(v) => setUsarEvento(v === true)} className="mt-0.5" />
+            <span>
+              <span className="font-medium">É um evento (festa, palestra, conferência...)</span>
+              <span className="block text-xs text-muted-foreground">
+                Data, horário e local aparecem em destaque na imagem e na legenda.
+              </span>
+            </span>
+          </label>
+          {usarEvento && (
+            <div className="grid gap-3 pl-7 sm:grid-cols-2">
+              <div className="space-y-1">
+                <Label className="text-xs">Tipo</Label>
+                <Select value={eventoTipo} onValueChange={setEventoTipo}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Escolha" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {TIPOS_EVENTO.map((t) => (
+                      <SelectItem key={t} value={t}>
+                        {t}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-1">
+                <Label className="text-xs">Nome do evento</Label>
+                <Input
+                  value={eventoNome}
+                  maxLength={60}
+                  onChange={(e) => setEventoNome(e.target.value)}
+                  placeholder="Ex.: Noite do Vinho"
+                />
+              </div>
+              <div className="space-y-1">
+                <Label className="text-xs">Data</Label>
+                <Input type="date" value={eventoData} onChange={(e) => setEventoData(e.target.value)} />
+              </div>
+              <div className="space-y-1">
+                <Label className="text-xs">Horário</Label>
+                <Input type="time" value={eventoHora} onChange={(e) => setEventoHora(e.target.value)} />
+              </div>
+              <div className="space-y-1 sm:col-span-2">
+                <Label className="text-xs">Local</Label>
+                <Input
+                  value={eventoLocal}
+                  maxLength={80}
+                  onChange={(e) => setEventoLocal(e.target.value)}
+                  placeholder="Ex.: Espaço Aurora — Rua das Flores, 120"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+
+
 
         <div className="md:col-span-2">
           <Button type="submit" variant="hero" size="xl" className="w-full sm:w-auto" disabled={gerando}>
