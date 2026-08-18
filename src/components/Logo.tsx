@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import marcaHagoth from "@/assets/hagoth-mark.png.asset.json";
+import marcaHagoth from "@/assets/hagoth-mark.png";
 
 export function Logo({ to = "/" }: { to?: string }) {
   return (
