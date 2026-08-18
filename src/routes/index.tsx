@@ -21,7 +21,10 @@ import { Button } from "@/components/ui/button";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { Planos } from "@/components/Planos";
 import { PostCarousel } from "@/components/PostCarousel";
-import heroImg from "@/assets/hero-hagoth.jpg";
+import postEx1 from "@/assets/post-exemplo-1.jpg";
+import postEx2 from "@/assets/post-exemplo-2.jpg";
+import postEx3 from "@/assets/post-exemplo-3.jpg";
+import postEx4 from "@/assets/post-exemplo-4.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -193,15 +196,26 @@ function Landing() {
                 </Button>
               </div>
             </div>
-            <div className="animate-floaty">
-              <img
-                src={heroImg}
-                alt="Interface do Hagoth gerando posts de Instagram com inteligência artificial"
-                width={1408}
-                height={1008}
-                className="w-full rounded-3xl border border-border"
-              />
+            <div className="animate-floaty grid grid-cols-2 gap-4">
+              {[
+                { src: postEx1, alt: "Post de promoção criado com o Hagoth" },
+                { src: postEx2, alt: "Post de lançamento criado com o Hagoth" },
+                { src: postEx3, alt: "Post de agendamento criado com o Hagoth" },
+                { src: postEx4, alt: "Post de aula ao vivo criado com o Hagoth" },
+              ].map((p, i) => (
+                <img
+                  key={p.src}
+                  src={p.src}
+                  alt={p.alt}
+                  width={1024}
+                  height={1024}
+                  className={`w-full rounded-2xl border border-border shadow-lg ${
+                    i % 2 === 1 ? "translate-y-6" : ""
+                  }`}
+                />
+              ))}
             </div>
+
           </div>
         </section>
 
