@@ -153,10 +153,6 @@ const faq = [
     p: "Posso cancelar quando quiser?",
     r: "Sim, o cancelamento é livre e você continua com acesso até o fim do período já pago.",
   },
-  {
-    p: "Eu tenho Kiwify, posso usar?",
-    r: "Sim. Você pode vender o seu acesso ou integrar o checkout da Kiwify — o Hagoth cuida do conteúdo e você mantém o controle das vendas.",
-  },
 ];
 
 
