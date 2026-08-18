@@ -15,17 +15,23 @@ export const gerarPostComIA = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { nicho, palavras_chave, tom_de_voz, formato, cores_marca, user_id } = data;
 
-    const systemPrompt = `Você é um especialista em marketing para Instagram.
+    const systemPrompt = `Você é um especialista em marketing para Instagram focado em alto engajamento.
 Gere um post profissional para o nicho "${nicho}" com as palavras-chave "${palavras_chave}".
 O tom de voz deve ser "${tom_de_voz}" e o formato é "${formato}".${
       cores_marca ? `\nCores da marca: ${cores_marca}.` : ""
     }
+
+REGRAS DE CONTEÚDO:
+1. TÍTULO NA IMAGEM: Crie um título curto e impactante (HEADLINE) que deve ser incluído visualmente na imagem.
+2. TEXTO CURTO: Evite exageros. Use o básico que converte.
+3. ENGAJAMENTO: O texto deve despertar curiosidade ou desejo.
+
 Responda APENAS em JSON válido no seguinte formato:
 {
-  "titulo_curto": "Título chamativo",
-  "legenda": "Legenda completa do post em português",
+  "titulo_curto": "Título chamativo (Headline para a imagem)",
+  "legenda": "Legenda completa e engajadora em português",
   "hashtags": ["#tag1", "#tag2"],
-  "prompt_imagem": "Prompt detalhado em inglês para gerar uma imagem fotorrealista e profissional para este post"
+  "prompt_imagem": "Prompt detalhado em inglês para gerar uma imagem profissional. IMPORTANTE: Instrua a IA a incluir o texto '${conteudo.titulo_curto}' de forma harmônica e legível na imagem, garantindo que a composição combine perfeitamente com o nicho ${nicho}."
 }`;
 
     const { gerarTextoIA, gerarImagemIA } = await import("@/lib/ai-gateway.server");
