@@ -1,68 +1,67 @@
-const GATEWAY_URL = "https://ai.gateway.lovable.dev/v1";
+function anthropicKey() {
+  const key = process.env["ANTHROPIC_API_KEY"];
+  if (!key) throw new Error("ANTHROPIC_API_KEY ausente no servidor.");
+  return key;
+}
 
-function apiKey() {
-  const key = process.env["LOVABLE_API_KEY"];
-  if (!key) throw new Error("LOVABLE_API_KEY ausente no servidor.");
+function openaiKey() {
+  const key = process.env["OPENAI_API_KEY"];
+  if (!key) throw new Error("OPENAI_API_KEY ausente no servidor.");
   return key;
 }
 
 export async function gerarTextoIA(systemPrompt: string): Promise<string> {
-  const res = await fetch(`${GATEWAY_URL}/chat/completions`, {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${apiKey()}`,
-      "Content-Type": "application/json",
+      "x-api-key": anthropicKey(),
+      "anthropic-version": "2023-06-01",
+      "content-type": "application/json",
     },
     body: JSON.stringify({
-      model: "google/gemini-3.6-flash",
+      model: "claude-sonnet-4-6",
+      max_tokens: 2000,
       messages: [{ role: "user", content: systemPrompt }],
-      response_format: { type: "json_object" },
     }),
   });
 
   if (!res.ok) {
     const body = await res.text().catch(() => "");
-    throw new Error(`Gateway texto ${res.status}: ${body.slice(0, 500)}`);
+    throw new Error(`Anthropic texto ${res.status}: ${body.slice(0, 500)}`);
   }
 
   const json = (await res.json()) as {
-    choices?: Array<{ message?: { content?: string } }>;
+    content?: Array<{ type?: string; text?: string }>;
   };
-  return json.choices?.[0]?.message?.content ?? "{}";
+  const textBlock = json.content?.find((b) => b.type === "text");
+  return textBlock?.text ?? "{}";
 }
 
 /** Retorna a imagem em base64 (sem prefixo data:). */
 export async function gerarImagemIA(prompt: string): Promise<string | null> {
-  const res = await fetch(`${GATEWAY_URL}/images/generations`, {
+  const res = await fetch("https://api.openai.com/v1/images/generations", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${apiKey()}`,
+      Authorization: `Bearer ${openaiKey()}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "openai/gpt-image-2",
+      model: "dall-e-3",
       prompt,
-      quality: "low",
+      quality: "standard",
       size: "1024x1024",
+      response_format: "b64_json",
+      n: 1,
     }),
   });
 
   if (!res.ok) {
     const body = await res.text().catch(() => "");
-    throw new Error(`Gateway imagem ${res.status}: ${body.slice(0, 500)}`);
+    throw new Error(`OpenAI imagem ${res.status}: ${body.slice(0, 500)}`);
   }
 
   const json = (await res.json()) as {
-    data?: Array<{ b64_json?: string; url?: string }>;
+    data?: Array<{ b64_json?: string }>;
   };
-  const item = json.data?.[0];
-  if (item?.b64_json) return item.b64_json;
-  if (item?.url) {
-    const img = await fetch(item.url);
-    const buf = new Uint8Array(await img.arrayBuffer());
-    let binary = "";
-    for (let i = 0; i < buf.length; i += 1) binary += String.fromCharCode(buf[i]!);
-    return btoa(binary);
-  }
-  return null;
+  return json.data?.[0]?.b64_json ?? null;
 }
