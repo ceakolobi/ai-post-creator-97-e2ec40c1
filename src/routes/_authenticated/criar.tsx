@@ -55,6 +55,17 @@ const MENSAGENS = [
 
 const TONS = ["Profissional", "Descontraído", "Inspirador", "Direto ao ponto", "Divertido"];
 
+const TIPOS_EVENTO = [
+  "Festa",
+  "Palestra",
+  "Conferência",
+  "Workshop",
+  "Curso",
+  "Live",
+  "Promoção",
+  "Inauguração",
+];
+
 function CriarPost() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
