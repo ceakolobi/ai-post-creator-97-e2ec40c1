@@ -70,6 +70,97 @@ const passos = [
   { n: "03", titulo: "Copie e publique", texto: "Um clique para copiar o texto e baixar a arte." },
 ];
 
+const nichos = [
+  "Salão de beleza",
+  "Barbearia",
+  "Estética e clínicas",
+  "Restaurantes e delivery",
+  "Academias e personal",
+  "Advocacia",
+  "Imobiliárias",
+  "Pet shop",
+  "Moda e loja online",
+  "Infoprodutos",
+  "Igrejas e ministérios",
+  "Nutrição e saúde",
+];
+
+const recursos = [
+  {
+    icone: MessageSquareHeart,
+    titulo: "Tons de voz variados",
+    texto: "Do descontraído ao corporativo: escolha o tom e a IA escreve como a sua marca fala.",
+  },
+  {
+    icone: Stamp,
+    titulo: "Sua logo na arte",
+    texto: "Envie a logo, escolha posição, tamanho e opacidade — ela é aplicada na imagem final.",
+  },
+  {
+    icone: CalendarClock,
+    titulo: "Agenda de publicações",
+    texto: "Programe o dia e a rede social de cada post e acompanhe tudo em um só calendário.",
+  },
+  {
+    icone: Download,
+    titulo: "Baixar + copiar em 1 clique",
+    texto: "A imagem baixa e a legenda vai para a área de transferência ao mesmo tempo.",
+  },
+  {
+    icone: Users,
+    titulo: "Vários negócios",
+    texto: "Atenda clientes diferentes mantendo o histórico separado por nicho e favoritos.",
+  },
+  {
+    icone: ShieldCheck,
+    titulo: "Conteúdo só seu",
+    texto: "Cada post é gerado do zero para você — nada de modelos repetidos ou banco de imagens.",
+  },
+];
+
+const semHagoth = [
+  "Horas travado pensando na legenda",
+  "Pesquisar hashtags manualmente toda semana",
+  "Pagar designer ou usar imagem de banco repetida",
+  "Perder o ritmo e ficar dias sem postar",
+];
+
+const comHagoth = [
+  "Legenda pronta em segundos, no seu tom",
+  "Hashtags escolhidas para o seu nicho",
+  "Imagem exclusiva gerada por IA com a sua logo",
+  "Um mês de posts planejado em uma tarde",
+];
+
+const faq = [
+  {
+    p: "Preciso saber design ou usar Photoshop?",
+    r: "Não. Você descreve o negócio e recebe a arte pronta em formato quadrado, ideal para o feed do Instagram.",
+  },
+  {
+    p: "As imagens são exclusivas?",
+    r: "Sim. Cada imagem é criada por inteligência artificial no momento da geração, então não se repete em outras contas.",
+  },
+  {
+    p: "Posso usar em mais de uma rede social?",
+    r: "Pode. O conteúdo funciona em Instagram, Facebook, TikTok e LinkedIn — você baixa a arte e copia a legenda.",
+  },
+  {
+    p: "Como funciona o teste grátis?",
+    r: "São 7 dias com 10 posts inclusos, sem cartão de crédito. Depois você escolhe o plano que fizer sentido.",
+  },
+  {
+    p: "Posso cancelar quando quiser?",
+    r: "Sim, o cancelamento é livre e você continua com acesso até o fim do período já pago.",
+  },
+  {
+    p: "Eu tenho Kiwify, posso usar?",
+    r: "Sim. Você pode vender o seu acesso ou integrar o checkout da Kiwify — o Hagoth cuida do conteúdo e você mantém o controle das vendas.",
+  },
+];
+
+
+
 function Landing() {
   return (
     <div className="min-h-screen bg-background">
