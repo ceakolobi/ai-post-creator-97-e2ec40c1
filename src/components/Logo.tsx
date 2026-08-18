@@ -5,7 +5,7 @@ export function Logo({ to = "/" }: { to?: string }) {
   return (
     <Link to={to} className="flex items-center gap-2 font-bold tracking-tight">
       <img
-        src={marcaHagoth.url}
+        src={marcaHagoth}
         alt="Hagoth"
         width={32}
         height={32}
