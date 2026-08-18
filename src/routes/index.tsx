@@ -1,5 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Sparkles, Image as ImageIcon, History, Wand2, PencilLine, Copy, ArrowRight, Quote } from "lucide-react";
+import {
+  Sparkles,
+  Image as ImageIcon,
+  History,
+  Wand2,
+  PencilLine,
+  Copy,
+  ArrowRight,
+  Quote,
+  Check,
+  X,
+  CalendarClock,
+  Stamp,
+  MessageSquareHeart,
+  ShieldCheck,
+  Download,
+  Users,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { Planos } from "@/components/Planos";
@@ -52,6 +69,97 @@ const passos = [
   { n: "02", titulo: "A IA cria", texto: "Em segundos você recebe legenda, hashtags e imagem." },
   { n: "03", titulo: "Copie e publique", texto: "Um clique para copiar o texto e baixar a arte." },
 ];
+
+const nichos = [
+  "Salão de beleza",
+  "Barbearia",
+  "Estética e clínicas",
+  "Restaurantes e delivery",
+  "Academias e personal",
+  "Advocacia",
+  "Imobiliárias",
+  "Pet shop",
+  "Moda e loja online",
+  "Infoprodutos",
+  "Igrejas e ministérios",
+  "Nutrição e saúde",
+];
+
+const recursos = [
+  {
+    icone: MessageSquareHeart,
+    titulo: "Tons de voz variados",
+    texto: "Do descontraído ao corporativo: escolha o tom e a IA escreve como a sua marca fala.",
+  },
+  {
+    icone: Stamp,
+    titulo: "Sua logo na arte",
+    texto: "Envie a logo, escolha posição, tamanho e opacidade — ela é aplicada na imagem final.",
+  },
+  {
+    icone: CalendarClock,
+    titulo: "Agenda de publicações",
+    texto: "Programe o dia e a rede social de cada post e acompanhe tudo em um só calendário.",
+  },
+  {
+    icone: Download,
+    titulo: "Baixar + copiar em 1 clique",
+    texto: "A imagem baixa e a legenda vai para a área de transferência ao mesmo tempo.",
+  },
+  {
+    icone: Users,
+    titulo: "Vários negócios",
+    texto: "Atenda clientes diferentes mantendo o histórico separado por nicho e favoritos.",
+  },
+  {
+    icone: ShieldCheck,
+    titulo: "Conteúdo só seu",
+    texto: "Cada post é gerado do zero para você — nada de modelos repetidos ou banco de imagens.",
+  },
+];
+
+const semHagoth = [
+  "Horas travado pensando na legenda",
+  "Pesquisar hashtags manualmente toda semana",
+  "Pagar designer ou usar imagem de banco repetida",
+  "Perder o ritmo e ficar dias sem postar",
+];
+
+const comHagoth = [
+  "Legenda pronta em segundos, no seu tom",
+  "Hashtags escolhidas para o seu nicho",
+  "Imagem exclusiva gerada por IA com a sua logo",
+  "Um mês de posts planejado em uma tarde",
+];
+
+const faq = [
+  {
+    p: "Preciso saber design ou usar Photoshop?",
+    r: "Não. Você descreve o negócio e recebe a arte pronta em formato quadrado, ideal para o feed do Instagram.",
+  },
+  {
+    p: "As imagens são exclusivas?",
+    r: "Sim. Cada imagem é criada por inteligência artificial no momento da geração, então não se repete em outras contas.",
+  },
+  {
+    p: "Posso usar em mais de uma rede social?",
+    r: "Pode. O conteúdo funciona em Instagram, Facebook, TikTok e LinkedIn — você baixa a arte e copia a legenda.",
+  },
+  {
+    p: "Como funciona o teste grátis?",
+    r: "São 7 dias com 10 posts inclusos, sem cartão de crédito. Depois você escolhe o plano que fizer sentido.",
+  },
+  {
+    p: "Posso cancelar quando quiser?",
+    r: "Sim, o cancelamento é livre e você continua com acesso até o fim do período já pago.",
+  },
+  {
+    p: "Eu tenho Kiwify, posso usar?",
+    r: "Sim. Você pode vender o seu acesso ou integrar o checkout da Kiwify — o Hagoth cuida do conteúdo e você mantém o controle das vendas.",
+  },
+];
+
+
 
 function Landing() {
   return (
@@ -158,6 +266,71 @@ function Landing() {
           </div>
         </section>
 
+        <section className="border-y border-border bg-card/40">
+          <div className="mx-auto max-w-6xl px-4 py-16">
+            <h2 className="text-3xl">Feito para o seu nicho</h2>
+            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+              O Hagoth entende o contexto do seu negócio e adapta linguagem, chamadas e hashtags para cada
+              segmento.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {nichos.map((n) => (
+                <span
+                  key={n}
+                  className="rounded-full border border-border bg-card px-4 py-2 text-sm text-muted-foreground"
+                >
+                  {n}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 py-16">
+          <h2 className="text-3xl">Muito além de um gerador de legendas</h2>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {recursos.map((r) => (
+              <div key={r.titulo} className="rounded-2xl border border-border bg-card p-6">
+                <span className="flex size-10 items-center justify-center rounded-xl bg-gradient-brand">
+                  <r.icone className="size-5 text-primary-foreground" />
+                </span>
+                <h3 className="mt-4 text-base font-semibold">{r.titulo}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{r.texto}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-y border-border bg-card/40">
+          <div className="mx-auto max-w-6xl px-4 py-16">
+            <h2 className="text-3xl">Quanto tempo você economiza</h2>
+            <div className="mt-8 grid gap-5 md:grid-cols-2">
+              <div className="rounded-2xl border border-border bg-card p-6">
+                <h3 className="text-base font-semibold text-muted-foreground">Do jeito antigo</h3>
+                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                  {semHagoth.map((t) => (
+                    <li key={t} className="flex gap-2">
+                      <X className="mt-0.5 size-4 shrink-0 text-destructive" />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-border bg-card p-6 glow">
+                <h3 className="text-base font-semibold text-gradient">Com o Hagoth</h3>
+                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                  {comHagoth.map((t) => (
+                    <li key={t} className="flex gap-2">
+                      <Check className="mt-0.5 size-4 shrink-0 text-accent" />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
 
         <section id="planos" className="border-t border-border bg-card/40">
           <div className="mx-auto max-w-6xl px-4 py-16">
@@ -170,6 +343,43 @@ function Landing() {
             </div>
           </div>
         </section>
+
+        <section className="mx-auto max-w-3xl px-4 py-16">
+          <h2 className="text-3xl">Dúvidas frequentes</h2>
+          <div className="mt-8 space-y-3">
+            {faq.map((f) => (
+              <details key={f.p} className="group rounded-2xl border border-border bg-card p-5">
+                <summary className="cursor-pointer list-none font-medium marker:hidden">
+                  <span className="flex items-center justify-between gap-4">
+                    {f.p}
+                    <ArrowRight className="size-4 shrink-0 text-accent transition-transform group-open:rotate-90" />
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.r}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-t border-border bg-card/40">
+          <div className="mx-auto max-w-3xl px-4 py-16 text-center">
+            <h2 className="text-3xl">
+              Comece hoje com <span className="text-gradient">7 dias grátis</span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
+              10 posts inclusos, sem cartão de crédito. Em poucos minutos você tem a próxima semana de conteúdo
+              pronta.
+            </p>
+            <div className="mt-8 flex justify-center">
+              <Button asChild variant="hero" size="xl">
+                <Link to="/criar-conta">
+                  Criar minha conta grátis <ArrowRight />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <SiteFooter />
