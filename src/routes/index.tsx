@@ -20,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { Planos } from "@/components/Planos";
+import { PostCarousel } from "@/components/PostCarousel";
 import heroImg from "@/assets/hero-hagoth.jpg";
 
 export const Route = createFileRoute("/")({
@@ -202,6 +203,10 @@ function Landing() {
               />
             </div>
           </div>
+        </section>
+
+        <section className="bg-card/30 border-y border-border">
+          <PostCarousel />
         </section>
 
         <section className="mx-auto max-w-6xl px-4 py-16">
