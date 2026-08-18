@@ -158,6 +158,71 @@ function Landing() {
           </div>
         </section>
 
+        <section className="border-y border-border bg-card/40">
+          <div className="mx-auto max-w-6xl px-4 py-16">
+            <h2 className="text-3xl">Feito para o seu nicho</h2>
+            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+              O Hagoth entende o contexto do seu negócio e adapta linguagem, chamadas e hashtags para cada
+              segmento.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {nichos.map((n) => (
+                <span
+                  key={n}
+                  className="rounded-full border border-border bg-card px-4 py-2 text-sm text-muted-foreground"
+                >
+                  {n}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 py-16">
+          <h2 className="text-3xl">Muito além de um gerador de legendas</h2>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {recursos.map((r) => (
+              <div key={r.titulo} className="rounded-2xl border border-border bg-card p-6">
+                <span className="flex size-10 items-center justify-center rounded-xl bg-gradient-brand">
+                  <r.icone className="size-5 text-primary-foreground" />
+                </span>
+                <h3 className="mt-4 text-base font-semibold">{r.titulo}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{r.texto}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-y border-border bg-card/40">
+          <div className="mx-auto max-w-6xl px-4 py-16">
+            <h2 className="text-3xl">Quanto tempo você economiza</h2>
+            <div className="mt-8 grid gap-5 md:grid-cols-2">
+              <div className="rounded-2xl border border-border bg-card p-6">
+                <h3 className="text-base font-semibold text-muted-foreground">Do jeito antigo</h3>
+                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                  {semHagoth.map((t) => (
+                    <li key={t} className="flex gap-2">
+                      <X className="mt-0.5 size-4 shrink-0 text-destructive" />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-border bg-card p-6 glow">
+                <h3 className="text-base font-semibold text-gradient">Com o Hagoth</h3>
+                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                  {comHagoth.map((t) => (
+                    <li key={t} className="flex gap-2">
+                      <Check className="mt-0.5 size-4 shrink-0 text-accent" />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
 
         <section id="planos" className="border-t border-border bg-card/40">
           <div className="mx-auto max-w-6xl px-4 py-16">
