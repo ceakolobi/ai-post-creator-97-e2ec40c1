@@ -343,6 +343,43 @@ function Landing() {
             </div>
           </div>
         </section>
+
+        <section className="mx-auto max-w-3xl px-4 py-16">
+          <h2 className="text-3xl">Dúvidas frequentes</h2>
+          <div className="mt-8 space-y-3">
+            {faq.map((f) => (
+              <details key={f.p} className="group rounded-2xl border border-border bg-card p-5">
+                <summary className="cursor-pointer list-none font-medium marker:hidden">
+                  <span className="flex items-center justify-between gap-4">
+                    {f.p}
+                    <ArrowRight className="size-4 shrink-0 text-accent transition-transform group-open:rotate-90" />
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.r}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-t border-border bg-card/40">
+          <div className="mx-auto max-w-3xl px-4 py-16 text-center">
+            <h2 className="text-3xl">
+              Comece hoje com <span className="text-gradient">7 dias grátis</span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
+              10 posts inclusos, sem cartão de crédito. Em poucos minutos você tem a próxima semana de conteúdo
+              pronta.
+            </p>
+            <div className="mt-8 flex justify-center">
+              <Button asChild variant="hero" size="xl">
+                <Link to="/criar-conta">
+                  Criar minha conta grátis <ArrowRight />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <SiteFooter />
