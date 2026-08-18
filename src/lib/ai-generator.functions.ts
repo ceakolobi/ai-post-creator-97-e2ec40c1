@@ -22,16 +22,16 @@ O tom de voz deve ser "${tom_de_voz}" e o formato é "${formato}".${
     }
 
 REGRAS DE CONTEÚDO:
-1. TÍTULO NA IMAGEM: Crie um título curto e impactante (HEADLINE) que deve ser incluído visualmente na imagem.
-2. TEXTO CURTO: Evite exageros. Use o básico que converte.
-3. ENGAJAMENTO: O texto deve despertar curiosidade ou desejo.
+1. TÍTULO NA IMAGEM: Crie um título curto e impactante (HEADLINE) para ser usado na imagem.
+2. TEXTO CURTO: Evite exageros. Use o básico que converte e gera engajamento.
+3. ESTÉTICA: A imagem deve ser linda e combinar perfeitamente com o nicho escolhido.
 
 Responda APENAS em JSON válido no seguinte formato:
 {
-  "titulo_curto": "Título chamativo (Headline para a imagem)",
-  "legenda": "Legenda completa e engajadora em português",
+  "titulo_curto": "Título chamativo (Headline)",
+  "legenda": "Legenda engajadora em português",
   "hashtags": ["#tag1", "#tag2"],
-  "prompt_imagem": "Prompt detalhado em inglês para gerar uma imagem profissional. IMPORTANTE: Instrua a IA a incluir o texto '${conteudo.titulo_curto}' de forma harmônica e legível na imagem, garantindo que a composição combine perfeitamente com o nicho ${nicho}."
+  "prompt_imagem": "Prompt detalhado em inglês para gerar uma imagem profissional. IMPORTANTE: O prompt deve incluir instruções para a IA escrever o texto do 'titulo_curto' de forma legível e elegante na imagem, garantindo harmonia com o nicho ${nicho}."
 }`;
 
     const { gerarTextoIA, gerarImagemIA } = await import("@/lib/ai-gateway.server");
