@@ -21,7 +21,10 @@ import { Button } from "@/components/ui/button";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { Planos } from "@/components/Planos";
 import { PostCarousel } from "@/components/PostCarousel";
-import heroImg from "@/assets/hero-hagoth.jpg";
+import postEx1 from "@/assets/post-exemplo-1.jpg";
+import postEx2 from "@/assets/post-exemplo-2.jpg";
+import postEx3 from "@/assets/post-exemplo-3.jpg";
+import postEx4 from "@/assets/post-exemplo-4.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
