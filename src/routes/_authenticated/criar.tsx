@@ -71,6 +71,20 @@ function CriarPost() {
   const [usarCores, setUsarCores] = useState(false);
   const [formato] = useState("post único");
 
+  const [usarTitulo, setUsarTitulo] = useState(false);
+  const [tituloPersonalizado, setTituloPersonalizado] = useState("");
+  const [usarDestaques, setUsarDestaques] = useState(false);
+  const [destaques, setDestaques] = useState<string[]>(["", "", ""]);
+  const [usarCta, setUsarCta] = useState(false);
+  const [cta, setCta] = useState("");
+  const [usarEvento, setUsarEvento] = useState(false);
+  const [eventoTipo, setEventoTipo] = useState("");
+  const [eventoNome, setEventoNome] = useState("");
+  const [eventoData, setEventoData] = useState("");
+  const [eventoHora, setEventoHora] = useState("");
+  const [eventoLocal, setEventoLocal] = useState("");
+
+
   const [gerando, setGerando] = useState(false);
   const [mensagem, setMensagem] = useState(MENSAGENS[0]!);
   const [resultado, setResultado] = useState<Post | null>(null);
