@@ -124,7 +124,26 @@ function CriarPost() {
           cores_marca: usarCores ? `${cor1}, ${cor2}` : "",
           formato,
           user_id: user.id,
+          ...(usarTitulo && tituloPersonalizado.trim()
+            ? { titulo_personalizado: tituloPersonalizado.trim().slice(0, 60) }
+            : {}),
+          ...(usarDestaques && destaques.some((d) => d.trim())
+            ? { destaques: destaques.map((d) => d.trim().slice(0, 40)).filter(Boolean) }
+            : {}),
+          ...(usarCta && cta.trim() ? { cta: cta.trim().slice(0, 60) } : {}),
+          ...(usarEvento
+            ? {
+                evento: {
+                  tipo: eventoTipo,
+                  nome: eventoNome.trim().slice(0, 60),
+                  data: eventoData,
+                  hora: eventoHora,
+                  local: eventoLocal.trim().slice(0, 80),
+                },
+              }
+            : {}),
         }
+
       });
 
       const hashtags = normalizarHashtags(resposta.hashtags);
