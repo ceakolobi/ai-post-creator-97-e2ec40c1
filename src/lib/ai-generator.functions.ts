@@ -137,7 +137,7 @@ Responda APENAS em JSON válido no seguinte formato:
     return {
       sucesso: true,
       nicho,
-      titulo_curto: conteudo.titulo_curto || `${nicho}: Dica do dia`,
+      titulo_curto: titulo_personalizado || conteudo.titulo_curto || `${nicho}: Dica do dia`,
       legenda: conteudo.legenda || "",
       hashtags,
       imagem_url,
