@@ -8,7 +8,7 @@ const gerarPostInputSchema = z.object({
   tom_de_voz: z.string(),
   cores_marca: z.string().optional(),
   formato: z.string(),
-  user_id: z.string(),
+  user_id: z.string().optional(),
   titulo_personalizado: z.string().max(60).optional(),
   destaques: z.array(z.string().max(40)).max(3).optional(),
   cta: z.string().max(60).optional(),
