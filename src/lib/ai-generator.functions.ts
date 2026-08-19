@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const gerarPostInputSchema = z.object({
   nicho: z.string(),
@@ -23,15 +24,15 @@ const gerarPostInputSchema = z.object({
 });
 
 export const gerarPostComIA = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data) => gerarPostInputSchema.parse(data))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
     const {
       nicho,
       palavras_chave,
       tom_de_voz,
       formato,
       cores_marca,
-      user_id,
       titulo_personalizado,
       destaques,
       cta,
@@ -115,14 +116,13 @@ Responda APENAS em JSON válido no seguinte formato:
       );
 
       if (b64) {
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
-        const path = `${user_id}/${crypto.randomUUID()}.png`;
-        const { error: upErr } = await supabaseAdmin.storage
+        const path = `${context.userId}/${crypto.randomUUID()}.png`;
+        const { error: upErr } = await context.supabase.storage
           .from("posts-instagram")
           .upload(path, bytes, { contentType: "image/png", upsert: true });
         if (upErr) throw upErr;
-        const { data: signed } = await supabaseAdmin.storage
+        const { data: signed } = await context.supabase.storage
           .from("posts-instagram")
           .createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
         imagem_url = signed?.signedUrl ?? "";
