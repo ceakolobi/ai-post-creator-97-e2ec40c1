@@ -53,7 +53,7 @@ function CriarConta() {
       email: form.email.trim(),
       password: form.senha,
       options: {
-        emailRedirectTo: `${window.location.origin}/dashboard`,
+        emailRedirectTo: window.location.origin,
         data: {
           nome: form.nome.trim(),
           telefone: form.telefone.trim(),
