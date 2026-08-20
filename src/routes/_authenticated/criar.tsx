@@ -27,6 +27,8 @@ import {
 } from "@/components/ui/dialog";
 import { PostPreview } from "@/components/PostPreview";
 import { LogoMarca } from "@/components/LogoMarca";
+import { PlanosUpgrade } from "@/components/PlanosUpgrade";
+
 import { useMarca } from "@/lib/logo";
 import { useAuth } from "@/hooks/useAuth";
 import { calcularUso, usePosts, useSubscription, type Post } from "@/lib/data";
