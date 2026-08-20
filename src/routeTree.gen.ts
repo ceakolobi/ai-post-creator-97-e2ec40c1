@@ -26,6 +26,7 @@ import { Route as AuthenticatedMeusPostsRouteImport } from './routes/_authentica
 import { Route as AuthenticatedMinhaContaRouteImport } from './routes/_authenticated/minha-conta'
 import { Route as AuthenticatedPostPostIdRouteImport } from './routes/_authenticated/post.$postId'
 import { Route as ApiPublicKiwifyWebhookRouteImport } from './routes/api/public/kiwify-webhook'
+import { Route as ApiWebhooksKiwifyRouteImport } from './routes/api/webhooks/kiwify'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -112,6 +113,11 @@ const ApiPublicKiwifyWebhookRoute = ApiPublicKiwifyWebhookRouteImport.update({
   path: '/api/public/kiwify-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiWebhooksKiwifyRoute = ApiWebhooksKiwifyRouteImport.update({
+  id: '/api/webhooks/kiwify',
+  path: '/api/webhooks/kiwify',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/post/$postId': typeof AuthenticatedPostPostIdRoute
   '/api/public/kiwify-webhook': typeof ApiPublicKiwifyWebhookRoute
+  '/api/webhooks/kiwify': typeof ApiWebhooksKiwifyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/post/$postId': typeof AuthenticatedPostPostIdRoute
   '/api/public/kiwify-webhook': typeof ApiPublicKiwifyWebhookRoute
+  '/api/webhooks/kiwify': typeof ApiWebhooksKiwifyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -168,6 +176,7 @@ export interface FileRoutesById {
   '/_authenticated/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/_authenticated/post/$postId': typeof AuthenticatedPostPostIdRoute
   '/api/public/kiwify-webhook': typeof ApiPublicKiwifyWebhookRoute
+  '/api/webhooks/kiwify': typeof ApiWebhooksKiwifyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/minha-conta'
     | '/post/$postId'
     | '/api/public/kiwify-webhook'
+    | '/api/webhooks/kiwify'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -206,6 +216,7 @@ export interface FileRouteTypes {
     | '/minha-conta'
     | '/post/$postId'
     | '/api/public/kiwify-webhook'
+    | '/api/webhooks/kiwify'
   id:
     | '__root__'
     | '/'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/_authenticated/minha-conta'
     | '/_authenticated/post/$postId'
     | '/api/public/kiwify-webhook'
+    | '/api/webhooks/kiwify'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -237,6 +249,7 @@ export interface RootRouteChildren {
   RedefinirSenhaRoute: typeof RedefinirSenhaRoute
   TermosRoute: typeof TermosRoute
   ApiPublicKiwifyWebhookRoute: typeof ApiPublicKiwifyWebhookRoute
+  ApiWebhooksKiwifyRoute: typeof ApiWebhooksKiwifyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -360,6 +373,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicKiwifyWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/webhooks/kiwify': {
+      id: '/api/webhooks/kiwify'
+      path: '/api/webhooks/kiwify'
+      fullPath: '/api/webhooks/kiwify'
+      preLoaderRoute: typeof ApiWebhooksKiwifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -398,6 +418,7 @@ const rootRouteChildren: RootRouteChildren = {
   RedefinirSenhaRoute: RedefinirSenhaRoute,
   TermosRoute: TermosRoute,
   ApiPublicKiwifyWebhookRoute: ApiPublicKiwifyWebhookRoute,
+  ApiWebhooksKiwifyRoute: ApiWebhooksKiwifyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

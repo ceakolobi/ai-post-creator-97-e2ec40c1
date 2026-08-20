@@ -2,11 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { processarWebhookKiwify } from "@/lib/kiwify.server";
 
 /**
- * Alias legado do webhook da Kiwify.
- * URL: https://<seu-dominio>/api/public/kiwify-webhook
- * Preferencial: /api/webhooks/kiwify
+ * Webhook da Kiwify (URL de produção):
+ * https://hagoth.antum.com.br/api/webhooks/kiwify
  */
-export const Route = createFileRoute("/api/public/kiwify-webhook")({
+export const Route = createFileRoute("/api/webhooks/kiwify")({
   server: {
     handlers: {
       POST: ({ request }) => processarWebhookKiwify(request),
