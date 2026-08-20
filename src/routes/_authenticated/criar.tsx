@@ -499,6 +499,8 @@ function CriarPost() {
                 : `Você já usou os ${uso.limite} posts do seu plano neste mês. Faça upgrade ou aguarde a renovação.`}
             </DialogDescription>
           </DialogHeader>
+          <PlanosUpgrade />
+
           <DialogFooter>
             <Button variant="outline" onClick={() => setBloqueioAberto(false)}>
               Fechar
