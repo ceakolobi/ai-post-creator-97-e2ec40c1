@@ -226,12 +226,16 @@ function CriarPost() {
       <LogoMarca />
 
       {uso.bloqueado && (
-        <div className="rounded-2xl border border-destructive/40 bg-card p-4 text-sm">
-          {uso.motivo === "trial_expirado"
-            ? "Seu teste grátis terminou. Assine um plano para continuar gerando posts — seu histórico continua disponível."
-            : `Você atingiu o limite de ${uso.limite} posts deste mês. O limite renova no início do próximo mês.`}
+        <div className="space-y-4 rounded-2xl border border-destructive/40 bg-card p-4 text-sm">
+          <p>
+            {uso.motivo === "trial_expirado"
+              ? "Seu teste grátis terminou. Assine um plano para continuar gerando posts — seu histórico continua disponível."
+              : `Você atingiu o limite de ${uso.limite} posts deste mês. O limite renova no início do próximo mês.`}
+          </p>
+          <PlanosUpgrade />
         </div>
       )}
+
 
       <form onSubmit={enviar} className="grid gap-5 rounded-2xl border border-border bg-card p-6 md:grid-cols-2">
         <div className="space-y-2 md:col-span-2">
