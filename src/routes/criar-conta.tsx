@@ -70,6 +70,10 @@ function CriarConta() {
       );
       return;
     }
+    if (data.user && data.user.identities?.length === 0) {
+      toast.error("Este e-mail já tem uma conta. Entre com sua senha ou use 'Esqueci minha senha'.");
+      return;
+    }
     if (data.session) {
       toast.success("Conta criada! Bom proveito do seu teste grátis.");
       navigate({ to: "/dashboard" });
